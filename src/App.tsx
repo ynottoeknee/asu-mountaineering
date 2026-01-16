@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // Background images
 const mountainImgPrimary = "/McDowellMountainCentered.jpg";
 const mountainImgFallback =
-  "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop";
+  "/McDowellMountainCentered.jpg";
 
 const ROUTES = [
   "/",
