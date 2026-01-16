@@ -118,7 +118,7 @@ export default function ASUMountaineeringSite() {
     <BackgroundWrapper>
      {/* HOME */}
 <div
-  className={`flex flex-col items-center justify-start pt-28 pb-8 px-4 text-center ${
+  className={`flex flex-col items-center justify-start pt-36 pb-8 px-4 text-center ${
     route === "/" ? "min-h-screen" : "hidden"
   }`}
 >
@@ -159,11 +159,11 @@ export default function ASUMountaineeringSite() {
     <span className="block mt-2">ARIZONA STATE UNIVERSITY</span>
 
     {/* Divider line (the “black line” across the middle) */}
-    <div className="mx-auto mt-6 h-[2px] w-[min(680px,90vw)] bg-black/80" />
+    <div className="mx-auto mt-10 h-[2px] w-[min(680px,90vw)] bg-transparent" />
 
     {/* Dedication text tight to divider */}
     <div
-      className="mt-2 text-white/80"
+      className="mt-4 text-white/80"
       style={{
         fontFamily: "'Cormorant Garamond', 'Libre Baskerville', 'Times New Roman', serif",
         letterSpacing: "0.18em",
