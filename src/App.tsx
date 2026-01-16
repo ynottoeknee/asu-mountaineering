@@ -116,67 +116,87 @@ export default function ASUMountaineeringSite() {
 
   return (
     <BackgroundWrapper>
-      {/* HOME */}
-      <div className={`flex flex-col items-center justify-start pt-20 pb-8 px-4 text-center ${route === "/" ? "min-h-screen" : "hidden"}`}>
-                {/* Title moved slightly upward */}
-        <h1
-          className="text-4xl md:text-7xl font-semibold mb-10 text-white/95 leading-[1.05]"
+     {/* HOME */}
+<div
+  className={`flex flex-col items-center justify-start pt-28 pb-8 px-4 text-center ${
+    route === "/" ? "min-h-screen" : "hidden"
+  }`}
+>
+  <h1
+    className="text-4xl md:text-7xl font-semibold text-white/95 leading-[1.05]"
+    style={{
+      fontFamily: "Oswald, 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif",
+      letterSpacing: "0.04em",
+      transform: "scaleY(1.18)",
+      transformOrigin: "center",
+    }}
+  >
+    <div className="flex items-end justify-center gap-4">
+      <span className="whitespace-nowrap">MOUNTAINEERING CLUB</span>
+      <span
+        className="flex flex-col items-center justify-center"
+        style={{
+          fontSize: "0.48em",
+          lineHeight: 0.8,
+          letterSpacing: "0.02em",
+          transform: "translateY(-0.32em)",
+        }}
+        aria-label="AT"
+      >
+        <span style={{ display: "block", transform: "rotate(-90deg) scaleY(-1)" }}>A</span>
+        <span
           style={{
-            fontFamily: "Oswald, 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif",
-            letterSpacing: "0.04em",
-            transform: "scaleY(1.18)",
-            transformOrigin: "center",
+            display: "block",
+            transform: "rotate(-90deg) scaleY(-1)",
+            marginTop: "-0.1em",
           }}
         >
-          <div className="flex items-end justify-center gap-4">
-            <span className="whitespace-nowrap">MOUNTAINEERING CLUB</span>
-            <span
-              className="flex flex-col items-center justify-center"
-              style={{
-                fontSize: "0.48em",
-                lineHeight: 0.8,
-                letterSpacing: "0.02em",
-                transform: "translateY(-0.32em)",
-              }}
-              aria-label="AT"
-            >
-              <span style={{ display: "block", transform: "rotate(-90deg) scaleY(-1)" }}>A</span>
-              <span style={{ display: "block", transform: "rotate(-90deg) scaleY(-1)", marginTop: "-0.1em" }}>T</span>
-            </span>
-          </div>
-          <span className="block mt-2">ARIZONA STATE UNIVERSITY</span>
-          <div
-            className="mt-4 text-white/80"
-            style={{
-              fontFamily: "'Cormorant Garamond', 'Libre Baskerville', 'Times New Roman', serif",
-              letterSpacing: "0.18em",
-            }}
-          >
-            <span className="block text-sm md:text-base">FOR TYLER HUGON</span>
-          </div>
-        </h1>
+          T
+        </span>
+      </span>
+    </div>
 
-        {/* Buttons with breathing room */}
-        <nav className="grid grid-cols-2 sm:flex sm:flex-wrap gap-5 justify-center mt-6">
-          {[
-            { name: "INTRO", path: "/intro" as Route },
-            { name: "JOURNAL", path: "/journal" as Route },
-            { name: "RESOURCES", path: "/resources" as Route },
-            { name: "OUR TEAM", path: "/team" as Route },
-            { name: "INITIATIVES", path: "/initiatives" as Route },
-            { name: "BETWEEN PEAKS", path: "/betweenpeaks" as Route },
-            { name: "CONTACT", path: "/contact" as Route },
-          ].map((item) => (
-            <button
-              key={item.path}
-              onClick={() => nav(item.path)}
-              className="px-6 py-3 rounded-xl border border-white/40 text-white/90 hover:bg-white/10 transition text-sm tracking-wide"
-            >
-              {item.name}
-            </button>
-          ))}
-        </nav>
-      </div>
+    <span className="block mt-2">ARIZONA STATE UNIVERSITY</span>
+
+    {/* Divider line (the “black line” across the middle) */}
+    <div className="mx-auto mt-6 h-[2px] w-[min(680px,90vw)] bg-black/80" />
+
+    {/* Dedication text tight to divider */}
+    <div
+      className="mt-2 text-white/80"
+      style={{
+        fontFamily: "'Cormorant Garamond', 'Libre Baskerville', 'Times New Roman', serif",
+        letterSpacing: "0.18em",
+      }}
+    >
+      <span className="block text-sm md:text-base">
+        FOR TYLER HUGON AND TESS COLLINS
+      </span>
+    </div>
+  </h1>
+
+  {/* Buttons beneath dedication */}
+  <nav className="grid grid-cols-2 sm:flex sm:flex-wrap gap-5 justify-center mt-8">
+    {[
+      { name: "INTRO", path: "/intro" as Route },
+      { name: "JOURNAL", path: "/journal" as Route },
+      { name: "RESOURCES", path: "/resources" as Route },
+      { name: "OUR TEAM", path: "/team" as Route },
+      { name: "INITIATIVES", path: "/initiatives" as Route },
+      { name: "BETWEEN PEAKS", path: "/betweenpeaks" as Route },
+      { name: "CONTACT", path: "/contact" as Route },
+    ].map((item) => (
+      <button
+        key={item.path}
+        onClick={() => nav(item.path)}
+        className="px-6 py-3 rounded-xl border border-white/40 text-white/90 hover:bg-white/10 transition text-sm tracking-wide"
+      >
+        {item.name}
+      </button>
+    ))}
+  </nav>
+</div>
+
 
           
       {/* INTRO */}
