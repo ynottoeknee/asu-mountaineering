@@ -202,49 +202,68 @@ export default function ASUMountaineeringSite() {
       {/* INTRO */}
       {route === "/intro" && (
         <Overlay onClose={() => nav("/") as Route}>
-          <div className="prose prose-invert max-w-none">
-            <h2>Welcome to the MCA's website!</h2>
-            {[0, 1].map((idx) => (
-              <div key={idx}>
-                <p>
-                  The MCA is a community of ASU students interested in mountaineering and sustainability. As part of our
-                  day-to-day activities, we run outdoor treks for kids with disabilities… We meet every Tuesday at 7 PM to
-                  get some food and chat. We announce where we will meet on any given week through our weekly email.
-                </p>
-                <h3>What does the time commitment look like?</h3>
-                <p>
-                  The time commitment is totally up to you. We welcome all different levels of involvement with the club.
-                  Most of our trips during the term are 8 hours long from campus to campus. Feeds are about an hour long
-                  and social events are roughly two hours long.
-                </p>
-                <h3>How much do trips cost?</h3>
-                <p>
-                  All of our daily trips are free. Break trips normally cost around $170 (plus the cost of flights) but
-                  financial aid applies.
-                </p>
-                <h3>What kind of gear do I need?</h3>
-                <p>
-                  You don’t need to have any special equipment to come on MCA trips (all necessary equipment is provided)
-                  though at some point you may choose to purchase your own climbing shoes or other equipment.
-                </p>
-                <h3>What if I don’t have any climbing experience?</h3>
-                <p>
-                  No worries. Some of our most talented leaders hadn’t touched rock (or gone climbing indoors) before
-                  coming to ASU.
-                </p>
-                <h3>What is the difference between the Arizona State Outdoors Club and the Mountaineering Club at Arizona State University?</h3>
-                <p>
-                  The MCA is focused on longer backpacking trips out of state, while the Outdoors Club focuses more on
-                  local hikes and outings. However, there’s a lot of overlap of people in both clubs and participating in
-                  one by no means means that you can’t participate in the other.
-                </p>
-              </div>
-            ))}
-            <p>
-              To get on the club's email list, just email <a href="mailto:mountaineering.club@asu.edu">mountaineering.club@asu.edu</a>.
-            </p>
-            <InstagramGrid />
-          </div>
+          <div className="prose prose-invert max-w-3xl mx-auto px-2 md:px-6">
+  <h2>Welcome to the MCA&apos;s website!</h2>
+
+  <p>
+    First and foremost, MCA is a community. The club is centered around us pushing ourselves
+    mentally and physically in the mountains, but we also aim to support our members in all of
+    their pursuits.
+  </p>
+
+  <div className="space-y-10">
+    <section className="space-y-3">
+      <h3>What kind of gear do I need?</h3>
+      <p>
+        You don’t need to have any special equipment to come on MCA trips (all necessary
+        equipment is provided), though at some point you may choose to purchase your own boots
+        or other equipment.
+      </p>
+    </section>
+
+    <section className="space-y-3">
+      <h3>What if I don’t have any backpacking or mountaineering experience?</h3>
+      <p>
+        No worries. The point of this club is to decrease the barriers of entry to outdoor activities
+        and help more people go on sick adventures.
+      </p>
+    </section>
+
+    <section className="space-y-3">
+      <h3>
+        What is the difference between the Arizona State Outdoors Club and the Mountaineering
+        Club at Arizona State University?
+      </h3>
+      <p>
+        You should absolutely do both! Our mountaineering club is focused more on larger
+        objectives that are out of state, while the Outdoors Club engages in a larger variety of
+        outings while mostly staying in state. That being said, our mountaineering club still goes on
+        lots of smaller trips for fun and team bonding.
+      </p>
+    </section>
+
+    <section className="space-y-3">
+      <h3>What does the time commitment look like?</h3>
+      <p>
+        The time commitment is totally up to you. We welcome all different levels of involvement
+        with the club. We have lots of fun events during the week like climbing local rock walls and
+        our club meetings. The only requirement is that for more advanced trips we need to make
+        sure every participant is ready.
+      </p>
+    </section>
+
+    <section className="space-y-3">
+      <h3>How much do trips cost?</h3>
+      <p>
+        All of our daily trips are free. We split the cost of break trips, meaning gas, flights, and
+        food. Rentals may be required for advanced trips, but those should not cost more than
+        $50 per person. If your trip doesn’t need specialized equipment like boots, crampons, or
+        ice axes, we should already have everything necessary for each participant.
+      </p>
+    </section>
+  </div>
+</div>
+
         </Overlay>
       )}
 
