@@ -200,36 +200,38 @@ export default function ASUMountaineeringSite() {
 
           
       {/* INTRO */}
-      {route === "/intro" && (
-        <Overlay onClose={() => nav("/") as Route}>
-          <div className="prose prose-invert max-w-3xl mx-auto px-2 md:px-6">
-  <h2>Welcome to the MCA&apos;s website!</h2>
+{route === "/intro" && (
+  <Overlay onClose={() => nav("/") as Route}>
+    <div
+      className="
+        prose prose-invert max-w-3xl mx-auto px-2 md:px-6
+        prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:font-semibold
+        prose-h3:text-lg md:prose-h3:text-xl prose-h3:font-semibold
+        prose-h3:mt-8
+        prose-p:text-base
+      "
+    >
+      <h2>Welcome to the MCA&apos;s website!</h2>
 
-  <p>
-    First and foremost, MCA is a community. The club is centered around us pushing ourselves
-    mentally and physically in the mountains, but we also aim to support our members in all of
-    their pursuits.
-  </p>
+      <p>
+        First and foremost, MCA is a community. The club is centered around us pushing ourselves
+        mentally and physically in the mountains, but we also aim to support our members in all of
+        their pursuits.
+      </p>
 
-  <div className="space-y-10">
-    <section className="space-y-3">
       <h3>What kind of gear do I need?</h3>
       <p>
         You don’t need to have any special equipment to come on MCA trips (all necessary
         equipment is provided), though at some point you may choose to purchase your own boots
         or other equipment.
       </p>
-    </section>
 
-    <section className="space-y-3">
       <h3>What if I don’t have any backpacking or mountaineering experience?</h3>
       <p>
         No worries. The point of this club is to decrease the barriers of entry to outdoor activities
         and help more people go on sick adventures.
       </p>
-    </section>
 
-    <section className="space-y-3">
       <h3>
         What is the difference between the Arizona State Outdoors Club and the Mountaineering
         Club at Arizona State University?
@@ -240,9 +242,7 @@ export default function ASUMountaineeringSite() {
         outings while mostly staying in state. That being said, our mountaineering club still goes on
         lots of smaller trips for fun and team bonding.
       </p>
-    </section>
 
-    <section className="space-y-3">
       <h3>What does the time commitment look like?</h3>
       <p>
         The time commitment is totally up to you. We welcome all different levels of involvement
@@ -250,9 +250,7 @@ export default function ASUMountaineeringSite() {
         our club meetings. The only requirement is that for more advanced trips we need to make
         sure every participant is ready.
       </p>
-    </section>
 
-    <section className="space-y-3">
       <h3>How much do trips cost?</h3>
       <p>
         All of our daily trips are free. We split the cost of break trips, meaning gas, flights, and
@@ -260,12 +258,12 @@ export default function ASUMountaineeringSite() {
         $50 per person. If your trip doesn’t need specialized equipment like boots, crampons, or
         ice axes, we should already have everything necessary for each participant.
       </p>
-    </section>
-  </div>
-</div>
 
-        </Overlay>
-      )}
+      <InstagramGrid />
+    </div>
+  </Overlay>
+)}
+
 
       {/* TEAM */}
 {route === "/team" && (
