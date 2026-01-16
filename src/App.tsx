@@ -159,11 +159,11 @@ export default function ASUMountaineeringSite() {
     <span className="block mt-2">ARIZONA STATE UNIVERSITY</span>
 
     {/* Divider line (the “black line” across the middle) */}
-    <div className="mx-auto mt-18 h-[2px] w-[min(680px,90vw)] bg-transparent" />
+    <div className="mx-auto mt-34 h-[2px] w-[min(680px,90vw)] bg-transparent" />
 
     {/* Dedication text tight to divider */}
     <div
-      className="mt-8 text-white/80"
+      className="mt-16 text-white/80"
       style={{
         fontFamily: "'Cormorant Garamond', 'Libre Baskerville', 'Times New Roman', serif",
         letterSpacing: "0.18em",
