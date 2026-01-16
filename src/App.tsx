@@ -202,67 +202,89 @@ export default function ASUMountaineeringSite() {
       {/* INTRO */}
 {route === "/intro" && (
   <Overlay onClose={() => nav("/") as Route}>
-    <div
-      className="
-        prose prose-invert max-w-3xl mx-auto px-2 md:px-6
-        prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:font-semibold
-        prose-h3:text-lg md:prose-h3:text-xl prose-h3:font-semibold
-        prose-h3:mt-8
-        prose-p:text-base
-      "
-    >
-      <h2>Welcome to the MCA&apos;s website!</h2>
+    <div className="w-full max-w-3xl mx-auto px-4 md:px-8 text-left">
+      {/* Title */}
+      <h2 className="text-2xl md:text-3xl font-semibold text-white/95 mb-4">
+        Welcome to the MCA&apos;s website!
+      </h2>
 
-      <p>
-        First and foremost, MCA is a community. The club is centered around us pushing ourselves
+      {/* Intro paragraph */}
+      <p className="text-base md:text-lg leading-relaxed text-white/85 mb-8">
+        First and foremost MCA is a community. The club is centered around us pushing ourselves
         mentally and physically in the mountains, but we also aim to support our members in all of
         their pursuits.
       </p>
 
-      <h3>What kind of gear do I need?</h3>
-      <p>
-        You don’t need to have any special equipment to come on MCA trips (all necessary
-        equipment is provided), though at some point you may choose to purchase your own boots
-        or other equipment.
-      </p>
+      {/* Q/A blocks */}
+      <div className="space-y-7">
+        <div className="space-y-2">
+          <div className="text-lg md:text-xl font-semibold text-white/95">
+            What kind of gear do I need?
+          </div>
+          <p className="text-base leading-relaxed text-white/85">
+            You don’t need to have any special equipment to come on MCA trips (all necessary
+            equipment is provided) though at some point you may choose to purchase your own boots
+            or other equipment.
+          </p>
+        </div>
 
-      <h3>What if I don’t have any backpacking or mountaineering experience?</h3>
-      <p>
-        No worries. The point of this club is to decrease the barriers of entry to outdoor activities
-        and help more people go on sick adventures.
-      </p>
+        <div className="space-y-2">
+          <div className="text-lg md:text-xl font-semibold text-white/95">
+            What if I don’t have any backpacking or mountaineering experience?
+          </div>
+          <p className="text-base leading-relaxed text-white/85">
+            No worries. The point of this club is to decrease the barriers of entry to outdoor activities,
+            and help more people go on sick adventures!
+          </p>
+        </div>
 
-      <h3>
-        What is the difference between the Arizona State Outdoors Club and the Mountaineering
-        Club at Arizona State University?
-      </h3>
-      <p>
-        You should absolutely do both! Our mountaineering club is focused more on larger
-        objectives that are out of state, while the Outdoors Club engages in a larger variety of
-        outings while mostly staying in state. That being said, our mountaineering club still goes on
-        lots of smaller trips for fun and team bonding.
-      </p>
+        <div className="space-y-2">
+          <div className="text-lg md:text-xl font-semibold text-white/95">
+            What is the difference between the Arizona State Outdoors Club and the Mountaineering
+            Club at Arizona State University?
+          </div>
+          <p className="text-base leading-relaxed text-white/85">
+            You should absolutely do both! Our mountaineering club is focussed more on larger
+            objectives that are out of state while the Outdoors club engage in a larger variety of outings
+            while mostly staying in state. That being said, our mountaineering club still goes on lots of
+            smaller trips for fun and team bonding.
+          </p>
+        </div>
 
-      <h3>What does the time commitment look like?</h3>
-      <p>
-        The time commitment is totally up to you. We welcome all different levels of involvement
-        with the club. We have lots of fun events during the week like climbing local rock walls and
-        our club meetings. The only requirement is that for more advanced trips we need to make
-        sure every participant is ready.
-      </p>
+        <div className="space-y-2">
+          <div className="text-lg md:text-xl font-semibold text-white/95">
+            What does the time commitment look like?
+          </div>
+          <p className="text-base leading-relaxed text-white/85">
+            The time commitment is totally up to you. We welcome all different levels of involvement
+            with the club. We have lots of fun events during the week like climbing local rock walls and
+            our club meetings. The only requirement would be for more advanced trips we will need to
+            make sure every participant is ready.
+          </p>
+        </div>
 
-      <h3>How much do trips cost?</h3>
-      <p>
-        All of our daily trips are free. We split the cost of break trips, meaning gas, flights, and
-        food. Rentals may be required for advanced trips, but those should not cost more than
-        $50 per person. If your trip doesn’t need specialized equipment like boots, crampons, or
-        ice axes, we should already have everything necessary for each participant.
-      </p>
+        <div className="space-y-2">
+          <div className="text-lg md:text-xl font-semibold text-white/95">
+            How much do trips cost?
+          </div>
+          <p className="text-base leading-relaxed text-white/85">
+            All of our daily trips are free. We will split the cost of break trips, meaning splitting gas,
+            flight and food costs. Plus the cost of rentals but that shouldn’t cost more than 50 dollars
+            per person on the most advanced trips where you need to have specialized boots, crampons
+            and ice axes. IF your trip doesn’t need that equipment we should have all the equipment
+            necessary for each participant.
+          </p>
+        </div>
+      </div>
 
-      <InstagramGrid />
+      {/* Optional: keep/remove */}
+      <div className="mt-10">
+        <InstagramGrid />
+      </div>
     </div>
   </Overlay>
 )}
+
 
 
       {/* TEAM */}
