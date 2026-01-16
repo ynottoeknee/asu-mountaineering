@@ -370,7 +370,7 @@ export default function ASUMountaineeringSite() {
             <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">Between Peaks</h2>
             <div className="mx-auto mt-2 h-px w-40 bg-white/30" />
             <p className="text-white/80 max-w-3xl mx-auto">Well... Between Peaks</p>
-            <p className="text-white/80 max-w-3xl mx-auto italic">“An artsy page dedicated to our members and what matters to them”</p>
+            <p className="text-white/80 max-w-3xl mx-auto italic">(An artsy page dedicated to our members and what matters to them)</p>
           </div>
         </Overlay>
       )}
