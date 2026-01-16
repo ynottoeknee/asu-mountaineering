@@ -293,22 +293,22 @@ export default function ASUMountaineeringSite() {
         {[
           {
             name: "David Jacobs",
-            img: "/charlie%20and%20I.jpeg",
+            img: "",
             bio: "The best advisor!",
           },
           {
             name: "Tony & Charlie",
-            img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop",
+            img: "/charlie%20and%20I.jpeg",
             bio: "",
           },
           {
             name: "Anabelle",
-            img: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop",
+            img: "",
             bio: "",
           },
           {
             name: "Ani",
-            img: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=800&auto=format&fit=crop",
+            img: "",
             bio: "",
           },
         ].map((m, i) => (
