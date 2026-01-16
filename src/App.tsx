@@ -132,7 +132,7 @@ export default function ASUMountaineeringSite() {
     }}
   >
     <div className="flex items-end justify-center gap-4">
-      <span className="whitespace-nowrap">MOUNTAI2EERING CLUB</span>
+      <span className="whitespace-nowrap">MOUNTAINEERING CLUB</span>
       <span
         className="flex flex-col items-center justify-center"
         style={{
@@ -292,24 +292,24 @@ export default function ASUMountaineeringSite() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {[
           {
-            name: "Tony & Charlie",
+            name: "David Jacobs",
             img: "/charlie%20and%20I.jpeg",
-            bio: "Founders and climbing partners. Focused on building a strong, inclusive mountaineering community at ASU.",
+            bio: "The best advisor!",
           },
           {
-            name: "Ani",
+            name: "Tony & Charlie",
             img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop",
-            bio: "Trip mastermind. Loves technical challenges and early alpine starts.",
+            bio: "",
           },
           {
             name: "Anabelle",
             img: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop",
-            bio: "Our gear whisperer—keeps every rope coiled and carabiner shiny.",
+            bio: "",
           },
           {
-            name: "David Jacobs",
+            name: "Ani",
             img: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=800&auto=format&fit=crop",
-            bio: "Connects climbers across campus and makes every event feel like family.",
+            bio: "",
           },
         ].map((m, i) => (
           <div
