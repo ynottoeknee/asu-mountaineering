@@ -132,7 +132,7 @@ export default function ASUMountaineeringSite() {
     }}
   >
     <div className="flex items-end justify-center gap-4">
-      <span className="whitespace-nowrap">MOUNTAINEERING CLUB</span>
+      <span className="whitespace-nowrap">MOUNTAI2EERING CLUB</span>
       <span
         className="flex flex-col items-center justify-center"
         style={{
