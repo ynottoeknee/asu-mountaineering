@@ -369,8 +369,8 @@ export default function ASUMountaineeringSite() {
           <div className="text-center space-y-6">
             <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">Between Peaks</h2>
             <div className="mx-auto mt-2 h-px w-40 bg-white/30" />
-            <p className="text-white/80 max-w-3xl mx-auto">Between Peaks is our storytelling and reflection page — a place to share trip reports, journal entries, and personal moments from the mountains. Here, members can post their stories, photo essays, or reflections on what the climb meant to them.</p>
-            <p className="text-white/80 max-w-3xl mx-auto italic">“The summit is what drives us, but the climb itself is what matters.”</p>
+            <p className="text-white/80 max-w-3xl mx-auto">Well... Between Peaks</p>
+            <p className="text-white/80 max-w-3xl mx-auto italic">“An artsy page dedicated to our members and what matters to them”</p>
           </div>
         </Overlay>
       )}
