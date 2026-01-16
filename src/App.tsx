@@ -268,40 +268,75 @@ export default function ASUMountaineeringSite() {
       )}
 
       {/* TEAM */}
-      {route === "/team" && (
-        <Overlay onClose={() => nav("/") as Route}>
-          <div>
-            <div className="mb-6 text-center">
-              <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">OUR TEAM</h2>
-              <div className="mx-auto mt-2 h-px w-40 bg-white/30" />
-            </div>
-            <div className="mb-10 rounded-2xl overflow-hidden shadow-xl">
-              <img
-                src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1600&auto=format&fit=crop"
-                alt="Group Photo"
-                className="w-full h-80 object-cover opacity-90 hover:opacity-100 transition duration-500"
-              />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {[
-                { name: "Alex (President)", img: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=800&auto=format&fit=crop", bio: "Desert peakbagger. Leads major expeditions and always packs an extra burrito." },
-                { name: "Sam (Trips)", img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop", bio: "Trip mastermind. Loves technical challenges and early alpine starts." },
-                { name: "Jules (Gear)", img: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop", bio: "Our gear whisperer—keeps every rope coiled and carabiner shiny." },
-                { name: "Kai (Community)", img: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=800&auto=format&fit=crop", bio: "Connects climbers across campus and makes every event feel like family." },
-              ].map((m, i) => (
-                <div key={i} className="relative group overflow-hidden rounded-3xl ring-1 ring-white/10 bg-gradient-to-b from-white/5 to-black/40 hover:shadow-2xl transition-all duration-500">
-                  <img src={m.img} alt={m.name} className="w-full h-80 object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition duration-700 ease-out" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70" />
-                  <div className="absolute bottom-0 w-full text-center pb-6 transform group-hover:translate-y-0 translate-y-6 transition duration-500">
-                    <h3 className="text-white text-lg font-bold tracking-wide drop-shadow-lg">{m.name}</h3>
-                    <p className="text-white/90 text-sm px-6 mt-2 leading-relaxed font-light opacity-0 group-hover:opacity-100 transition duration-500">{m.bio}</p>
-                  </div>
-                </div>
-              ))}
+{route === "/team" && (
+  <Overlay onClose={() => nav("/") as Route}>
+    <div>
+      {/* Header */}
+      <div className="mb-6 text-center">
+        <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">
+          OUR TEAM
+        </h2>
+        <div className="mx-auto mt-2 h-px w-40 bg-white/30" />
+      </div>
+
+      {/* Landscape hero image */}
+      <div className="mb-10 rounded-2xl overflow-hidden shadow-xl">
+        <img
+          src="/bos.jpg"
+          alt="Mountaineering Club group in the mountains"
+          className="w-full h-80 object-cover opacity-90 hover:opacity-100 transition duration-500"
+        />
+      </div>
+
+      {/* Team grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {[
+          {
+            name: "Tony & Charlie",
+            img: "/charlie%20and%20I.jpeg",
+            bio: "Founders and climbing partners. Focused on building a strong, inclusive mountaineering community at ASU.",
+          },
+          {
+            name: "Ani",
+            img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop",
+            bio: "Trip mastermind. Loves technical challenges and early alpine starts.",
+          },
+          {
+            name: "Anabelle",
+            img: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop",
+            bio: "Our gear whisperer—keeps every rope coiled and carabiner shiny.",
+          },
+          {
+            name: "David Jacobs",
+            img: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=800&auto=format&fit=crop",
+            bio: "Connects climbers across campus and makes every event feel like family.",
+          },
+        ].map((m, i) => (
+          <div
+            key={i}
+            className="relative group overflow-hidden rounded-3xl ring-1 ring-white/10 bg-gradient-to-b from-white/5 to-black/40 hover:shadow-2xl transition-all duration-500"
+          >
+            <img
+              src={m.img}
+              alt={m.name}
+              className="w-full h-80 object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition duration-700 ease-out"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70" />
+            <div className="absolute bottom-0 w-full text-center pb-6 transform translate-y-6 group-hover:translate-y-0 transition duration-500">
+              <h3 className="text-white text-lg font-bold tracking-wide drop-shadow-lg">
+                {m.name}
+              </h3>
+              <p className="text-white/90 text-sm px-6 mt-2 leading-relaxed font-light opacity-0 group-hover:opacity-100 transition duration-500">
+                {m.bio}
+              </p>
             </div>
           </div>
-        </Overlay>
-      )}
+        ))}
+      </div>
+    </div>
+  </Overlay>
+)}
+
 
       {/* INITIATIVES */}
       {route === "/initiatives" && (
