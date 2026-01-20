@@ -19,30 +19,12 @@ type Route = (typeof ROUTES)[number];
 
 const INSTAGRAM_URL = "https://instagram.com/asu_mountaineering";
 const INSTAGRAM_POSTS = [
-  {
-    img: "https://via.placeholder.com/300x300?text=Climb+1",
-    url: "https://www.instagram.com/p/example1/",
-  },
-  {
-    img: "https://via.placeholder.com/300x300?text=Meeting",
-    url: "https://www.instagram.com/p/example2/",
-  },
-  {
-    img: "https://via.placeholder.com/300x300?text=Summit",
-    url: "https://www.instagram.com/p/example3/",
-  },
-  {
-    img: "https://via.placeholder.com/300x300?text=Training",
-    url: "https://www.instagram.com/p/example4/",
-  },
-  {
-    img: "https://via.placeholder.com/300x300?text=Group+Hike",
-    url: "https://www.instagram.com/p/example5/",
-  },
-  {
-    img: "https://via.placeholder.com/300x300?text=Desert+Trip",
-    url: "https://www.instagram.com/p/example6/",
-  },
+  { img: "https://via.placeholder.com/300x300?text=Climb+1", url: "https://www.instagram.com/p/example1/" },
+  { img: "https://via.placeholder.com/300x300?text=Meeting", url: "https://www.instagram.com/p/example2/" },
+  { img: "https://via.placeholder.com/300x300?text=Summit", url: "https://www.instagram.com/p/example3/" },
+  { img: "https://via.placeholder.com/300x300?text=Training", url: "https://www.instagram.com/p/example4/" },
+  { img: "https://via.placeholder.com/300x300?text=Group+Hike", url: "https://www.instagram.com/p/example5/" },
+  { img: "https://via.placeholder.com/300x300?text=Desert+Trip", url: "https://www.instagram.com/p/example6/" },
 ];
 
 function BackgroundWrapper({ children }: { children: React.ReactNode }) {
@@ -50,7 +32,6 @@ function BackgroundWrapper({ children }: { children: React.ReactNode }) {
     <div
       className="relative w-full text-white overflow-hidden"
       style={{
-        // Fallbacks so the layout works even if Tailwind CSS isn’t loading
         minHeight: "100vh",
         width: "100%",
         backgroundColor: "#0a0a0a",
@@ -60,7 +41,6 @@ function BackgroundWrapper({ children }: { children: React.ReactNode }) {
         backgroundRepeat: "no-repeat",
       }}
     >
-      {/* minimal animation + hide global scrollbar */}
       <style>{`
         @keyframes slideUpFade { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
         .animate-slideUpFade { animation: slideUpFade .5s cubic-bezier(.22,.61,.36,1) both; }
@@ -74,14 +54,7 @@ function BackgroundWrapper({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Overlay({
-  children,
-  onClose,
-}: {
-  children: React.ReactNode;
-  onClose: () => void;
-}) {
-  // Whole panel scrolls with the page (not fixed)
+function Overlay({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
   return (
     <div className="w-full flex justify-center py-8 md:py-12">
       <div className="relative mx-4 w-full max-w-5xl rounded-2xl bg-black/60 backdrop-blur-md shadow-2xl ring-1 ring-white/10 p-6 md:p-10 animate-slideUpFade">
@@ -91,12 +64,7 @@ function Overlay({
           aria-label="Close"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M18 6L6 18M6 6l12 12"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
         </button>
         {children}
@@ -109,26 +77,15 @@ function InstagramGrid() {
   return (
     <div className="mt-8 bg-white/5 p-4 rounded-xl">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="uppercase tracking-widest text-sm text-white/80">
-          Our Instagram
-        </h3>
-        <a
-          href={INSTAGRAM_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="text-pink-400 hover:text-pink-300 text-sm"
-        >
+        <h3 className="uppercase tracking-widest text-sm text-white/80">Our Instagram</h3>
+        <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="text-pink-400 hover:text-pink-300 text-sm">
           @{INSTAGRAM_URL.split("/").pop()}
         </a>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
         {INSTAGRAM_POSTS.map((p, i) => (
           <a key={i} href={p.url} target="_blank" rel="noreferrer">
-            <img
-              src={p.img}
-              alt={`Instagram post ${i + 1}`}
-              className="rounded-lg hover:opacity-80 transition"
-            />
+            <img src={p.img} alt={`Instagram post ${i + 1}`} className="rounded-lg hover:opacity-80 transition" />
           </a>
         ))}
       </div>
@@ -150,22 +107,18 @@ export default function ASUMountaineeringSite() {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  const nav = (path: Route) =>
-    (window.location.hash = path === "/" ? "#/" : `#${path}`);
+  const nav = (path: Route) => (window.location.hash = path === "/" ? "#/" : `#${path}`);
 
   return (
     <BackgroundWrapper>
       {/* HOME */}
       <div
-        className={`flex flex-col items-center justify-start pt-36 pb-8 px-4 text-center ${
-          route === "/" ? "min-h-screen" : "hidden"
-        }`}
+        className={`flex flex-col items-center justify-start pt-36 pb-8 px-4 text-center ${route === "/" ? "min-h-screen" : "hidden"}`}
       >
         <h1
           className="text-4xl md:text-7xl font-semibold text-white/95 leading-[1.05]"
           style={{
-            fontFamily:
-              "Oswald, 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif",
+            fontFamily: "Oswald, 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif",
             letterSpacing: "0.04em",
             transform: "scaleY(1.18)",
             transformOrigin: "center",
@@ -183,47 +136,26 @@ export default function ASUMountaineeringSite() {
               }}
               aria-label="AT"
             >
-              <span
-                style={{
-                  display: "block",
-                  transform: "rotate(-90deg) scaleY(-1)",
-                }}
-              >
-                A
-              </span>
-              <span
-                style={{
-                  display: "block",
-                  transform: "rotate(-90deg) scaleY(-1)",
-                  marginTop: "-0.1em",
-                }}
-              >
-                T
-              </span>
+              <span style={{ display: "block", transform: "rotate(-90deg) scaleY(-1)" }}>A</span>
+              <span style={{ display: "block", transform: "rotate(-90deg) scaleY(-1)", marginTop: "-0.1em" }}>T</span>
             </span>
           </div>
 
           <span className="block mt-2">ARIZONA STATE UNIVERSITY</span>
 
-          {/* Divider line (the “black line” across the middle) */}
           <div className="mx-auto mt-34 h-[2px] w-[min(680px,90vw)] bg-transparent" />
 
-          {/* Dedication text tight to divider */}
           <div
             className="mt-16 text-white/80"
             style={{
-              fontFamily:
-                "'Cormorant Garamond', 'Libre Baskerville', 'Times New Roman', serif",
+              fontFamily: "'Cormorant Garamond', 'Libre Baskerville', 'Times New Roman', serif",
               letterSpacing: "0.18em",
             }}
           >
-            <span className="block text-sm md:text-base">
-              FOR TYLER HUGON AND TESS COLLINS
-            </span>
+            <span className="block text-sm md:text-base">FOR TYLER HUGON AND TESS COLLINS</span>
           </div>
         </h1>
 
-        {/* Buttons beneath dedication */}
         <nav className="grid grid-cols-2 sm:flex sm:flex-wrap gap-5 justify-center mt-8">
           {[
             { name: "INTRO", path: "/intro" as Route },
@@ -252,83 +184,43 @@ export default function ASUMountaineeringSite() {
             <h2 className="text-2xl md:text-3xl font-semibold text-white/95 mb-4">
               Welcome to the MCA&apos;s website!
             </h2>
-
             <p className="text-base md:text-lg leading-relaxed text-white/85 mb-8">
-              First and foremost MCA is a community. The club is centered around
-              us pushing ourselves mentally and physically in the mountains, but
-              we also aim to support our members in all of their pursuits.
+              First and foremost MCA is a community. The club is centered around us pushing ourselves mentally and physically in the mountains, but we also aim to support our members in all of their pursuits.
             </p>
-
             <div className="space-y-7">
               <div className="space-y-2">
-                <div className="text-lg md:text-xl font-semibold text-white/95">
-                  What kind of gear do I need?
-                </div>
+                <div className="text-lg md:text-xl font-semibold text-white/95">What kind of gear do I need?</div>
                 <p className="text-base leading-relaxed text-white/85">
-                  You don’t need to have any special equipment to come on MCA
-                  trips (all necessary equipment is provided) though at some
-                  point you may choose to purchase your own boots or other
-                  equipment.
+                  You don’t need to have any special equipment to come on MCA trips (all necessary equipment is provided) though at some point you may choose to purchase your own boots or other equipment.
                 </p>
               </div>
-
               <div className="space-y-2">
-                <div className="text-lg md:text-xl font-semibold text-white/95">
-                  What if I don’t have any backpacking or mountaineering
-                  experience?
-                </div>
+                <div className="text-lg md:text-xl font-semibold text-white/95">What if I don’t have any backpacking or mountaineering experience?</div>
                 <p className="text-base leading-relaxed text-white/85">
-                  No worries. The point of this club is to decrease the barriers
-                  of entry to outdoor activities, and help more people go on sick
-                  adventures!
+                  No worries. The point of this club is to decrease the barriers of entry to outdoor activities, and help more people go on sick adventures!
                 </p>
               </div>
-
               <div className="space-y-2">
                 <div className="text-lg md:text-xl font-semibold text-white/95">
-                  What is the difference between the Arizona State Outdoors Club
-                  and the Mountaineering Club at Arizona State University?
+                  What is the difference between the Arizona State Outdoors Club and the Mountaineering Club at Arizona State University?
                 </div>
                 <p className="text-base leading-relaxed text-white/85">
-                  You should absolutely do both! Our mountaineering club is
-                  focussed more on larger objectives that are out of state while
-                  the Outdoors club engage in a larger variety of outings while
-                  mostly staying in state. That being said, our mountaineering
-                  club still goes on lots of smaller trips for fun and team
-                  bonding.
+                  You should absolutely do both! Our mountaineering club is focussed more on larger objectives that are out of state while the Outdoors club engage in a larger variety of outings while mostly staying in state. That being said, our mountaineering club still goes on lots of smaller trips for fun and team bonding.
                 </p>
               </div>
-
               <div className="space-y-2">
-                <div className="text-lg md:text-xl font-semibold text-white/95">
-                  What does the time commitment look like?
-                </div>
+                <div className="text-lg md:text-xl font-semibold text-white/95">What does the time commitment look like?</div>
                 <p className="text-base leading-relaxed text-white/85">
-                  The time commitment is totally up to you. We welcome all
-                  different levels of involvement with the club. We have lots of
-                  fun events during the week like climbing local rock walls and
-                  our club meetings. The only requirement would be for more
-                  advanced trips we will need to make sure every participant is
-                  ready.
+                  The time commitment is totally up to you. We welcome all different levels of involvement with the club. We have lots of fun events during the week like climbing local rock walls and our club meetings. The only requirement would be for more advanced trips we will need to make sure every participant is ready.
                 </p>
               </div>
-
               <div className="space-y-2">
-                <div className="text-lg md:text-xl font-semibold text-white/95">
-                  How much do trips cost?
-                </div>
+                <div className="text-lg md:text-xl font-semibold text-white/95">How much do trips cost?</div>
                 <p className="text-base leading-relaxed text-white/85">
-                  All of our daily trips are free. We will split the cost of
-                  break trips, meaning splitting gas, flight and food costs.
-                  Plus the cost of rentals but that shouldn’t cost more than 50
-                  dollars per person on the most advanced trips where you need
-                  to have specialized boots, crampons and ice axes. IF your trip
-                  doesn’t need that equipment we should have all the equipment
-                  necessary for each participant.
+                  All of our daily trips are free. We will split the cost of break trips, meaning splitting gas, flight and food costs. Plus the cost of rentals but that shouldn’t cost more than 50 dollars per person on the most advanced trips where you need to have specialized boots, crampons and ice axes. IF your trip doesn’t need that equipment we should have all the equipment necessary for each participant.
                 </p>
               </div>
             </div>
-
             <div className="mt-10">
               <InstagramGrid />
             </div>
@@ -341,20 +233,12 @@ export default function ASUMountaineeringSite() {
         <Overlay onClose={() => nav("/") as Route}>
           <div>
             <div className="mb-6 text-center">
-              <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">
-                OUR TEAM
-              </h2>
+              <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">OUR TEAM</h2>
               <div className="mx-auto mt-2 h-px w-40 bg-white/30" />
             </div>
-
             <div className="mb-10 rounded-2xl overflow-hidden shadow-xl">
-              <img
-                src="/bos.jpg"
-                alt="Mountaineering Club group in the mountains"
-                className="w-full h-80 object-cover opacity-90 hover:opacity-100 transition duration-500"
-              />
+              <img src="/bos.jpg" alt="Mountaineering Club group in the mountains" className="w-full h-80 object-cover opacity-90 hover:opacity-100 transition duration-500" />
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {[
                 { name: "David Jacobs", img: "", bio: "The best advisor!" },
@@ -366,16 +250,10 @@ export default function ASUMountaineeringSite() {
                   key={i}
                   className="relative group overflow-hidden rounded-3xl ring-1 ring-white/10 bg-gradient-to-b from-white/5 to-black/40 hover:shadow-2xl transition-all duration-500"
                 >
-                  <img
-                    src={m.img}
-                    alt={m.name}
-                    className="w-full h-80 object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition duration-700 ease-out"
-                  />
+                  <img src={m.img} alt={m.name} className="w-full h-80 object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition duration-700 ease-out" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70" />
                   <div className="absolute bottom-0 w-full text-center pb-6 transform translate-y-6 group-hover:translate-y-0 transition duration-500">
-                    <h3 className="text-white text-lg font-bold tracking-wide drop-shadow-lg">
-                      {m.name}
-                    </h3>
+                    <h3 className="text-white text-lg font-bold tracking-wide drop-shadow-lg">{m.name}</h3>
                     <p className="text-white/90 text-sm px-6 mt-2 leading-relaxed font-light opacity-0 group-hover:opacity-100 transition duration-500">
                       {m.bio}
                     </p>
@@ -391,27 +269,23 @@ export default function ASUMountaineeringSite() {
       {route === "/initiatives" && (
         <Overlay onClose={() => nav("/") as Route}>
           <div className="mb-6 text-center">
-            <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">
-              INITIATIVES
-            </h2>
+            <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">INITIATIVES</h2>
             <div className="mx-auto mt-2 h-px w-40 bg-white/30" />
           </div>
           <p className="text-white/80">
-            Placeholder for club initiatives (e.g., adaptive treks,
-            sustainability projects, rescue-readiness workshops, mentorship).
-            We’ll fill this out together.
+            Placeholder for club initiatives (e.g., adaptive treks, sustainability projects, rescue-readiness workshops, mentorship). We’ll fill this out together.
           </p>
         </Overlay>
       )}
 
-      {/* RESOURCES (FIXED - no hooks-in-IIFE) */}
+      {/* RESOURCES */}
       {route === "/resources" && (
         <Overlay onClose={() => nav("/") as Route}>
           <ResourcesPanel />
         </Overlay>
       )}
 
-      {/* JOURNAL */}
+      /* JOURNAL */
       {route === "/journal" && (
         <Overlay onClose={() => nav("/") as Route}>
           <div className="text-white/80">Journal placeholder (upload PDFs later).</div>
@@ -422,14 +296,10 @@ export default function ASUMountaineeringSite() {
       {route === "/betweenpeaks" && (
         <Overlay onClose={() => nav("/") as Route}>
           <div className="text-center space-y-6">
-            <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">
-              Between Peaks
-            </h2>
+            <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">Between Peaks</h2>
             <div className="mx-auto mt-2 h-px w-40 bg-white/30" />
             <p className="text-white/80 max-w-3xl mx-auto">Well... Between Peaks</p>
-            <p className="text-white/80 max-w-3xl mx-auto italic">
-              (An artsy page dedicated to our members and what matters to them)
-            </p>
+            <p className="text-white/80 max-w-3xl mx-auto italic">(An artsy page dedicated to our members and what matters to them)</p>
           </div>
         </Overlay>
       )}
@@ -439,54 +309,25 @@ export default function ASUMountaineeringSite() {
         <Overlay onClose={() => nav("/") as Route}>
           <div>
             <div className="mb-6">
-              <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">
-                CONTACT
-              </h2>
+              <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">CONTACT</h2>
               <div className="mt-2 h-px w-40 bg-white/30" />
             </div>
-            <form
-              className="grid md:grid-cols-2 gap-4"
-              onSubmit={(e) => e.preventDefault()}
-            >
+            <form className="grid md:grid-cols-2 gap-4" onSubmit={(e) => e.preventDefault()}>
               <div className="md:col-span-1">
-                <label className="block text-white/70 text-xs mb-2 tracking-[0.25em]">
-                  NAME
-                </label>
-                <input
-                  className="w-full rounded-md bg-transparent text-white/90 px-4 py-2 ring-1 ring-white/20 focus:ring-2 focus:ring-white/40 outline-none"
-                  placeholder=""
-                />
+                <label className="block text-white/70 text-xs mb-2 tracking-[0.25em]">NAME</label>
+                <input className="w-full rounded-md bg-transparent text-white/90 px-4 py-2 ring-1 ring-white/20 focus:ring-2 focus:ring-white/40 outline-none" placeholder="" />
               </div>
               <div className="md:col-span-1">
-                <label className="block text-white/70 text-xs mb-2 tracking-[0.25em]">
-                  EMAIL
-                </label>
-                <input
-                  type="email"
-                  className="w-full rounded-md bg-transparent text-white/90 px-4 py-2 ring-1 ring-white/20 focus:ring-2 focus:ring-white/40 outline-none"
-                  placeholder=""
-                />
+                <label className="block text-white/70 text-xs mb-2 tracking-[0.25em]">EMAIL</label>
+                <input type="email" className="w-full rounded-md bg-transparent text-white/90 px-4 py-2 ring-1 ring-white/20 focus:ring-2 focus:ring-white/40 outline-none" placeholder="" />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-white/70 text-xs mb-2 tracking-[0.25em]">
-                  MESSAGE
-                </label>
-                <textarea
-                  rows={6}
-                  className="w-full rounded-md bg-transparent text-white/90 px-4 py-3 ring-1 ring-white/20 focus:ring-2 focus:ring-white/40 outline-none"
-                  placeholder=""
-                />
+                <label className="block text-white/70 text-xs mb-2 tracking-[0.25em]">MESSAGE</label>
+                <textarea rows={6} className="w-full rounded-md bg-transparent text-white/90 px-4 py-3 ring-1 ring-white/20 focus:ring-2 focus:ring-white/40 outline-none" placeholder="" />
               </div>
               <div className="md:col-span-2 flex items-center gap-3 pt-2">
-                <button className="px-5 py-2 rounded-md bg-white text-black/80 tracking-[0.3em] text-xs font-medium hover:bg-white/90 transition">
-                  SEND MESSAGE
-                </button>
-                <button
-                  type="reset"
-                  className="px-5 py-2 rounded-md border border-white/30 text-white/90 tracking-[0.3em] text-xs hover:bg-white/10"
-                >
-                  RESET
-                </button>
+                <button className="px-5 py-2 rounded-md bg-white text-black/80 tracking-[0.3em] text-xs font-medium hover:bg-white/90 transition">SEND MESSAGE</button>
+                <button type="reset" className="px-5 py-2 rounded-md border border-white/30 text-white/90 tracking-[0.3em] text-xs hover:bg-white/10">RESET</button>
               </div>
             </form>
           </div>
@@ -500,39 +341,23 @@ export default function ASUMountaineeringSite() {
    RESOURCES PANEL (folders + docs)
 ----------------------------- */
 function ResourcesPanel() {
-  type FolderKey = "trip" | "safety" | "leadership" | "club";
-  const [activeFolder, setActiveFolder] = useState<FolderKey>("leadership");
+  type FolderKey = "trip" | "safety" | "club" | "scholarships" | "community" | "perks";
+  const [activeFolder, setActiveFolder] = useState<FolderKey>("trip");
 
   const folders: { key: FolderKey; label: string; desc: string }[] = [
-    {
-      key: "trip",
-      label: "TRIP PLANNING",
-      desc: "Templates, checklists, logistics, and planning tools.",
-    },
-    {
-      key: "safety",
-      label: "SAFETY",
-      desc: "Risk management, emergency readiness, winter policy, comms.",
-    },
-    {
-      key: "leadership",
-      label: "LEADERSHIP",
-      desc: "How we lead: requirements, expectations, training pathways.",
-    },
-    {
-      key: "club",
-      label: "CLUB DOCS",
-      desc: "Constitution, officer structure, internal standards.",
-    },
+    { key: "trip", label: "TRIP PLANNING", desc: "Requirements, planning docs, templates, logistics." },
+    { key: "safety", label: "SAFETY", desc: "Risk management, emergency readiness, winter policy, comms." },
+    { key: "club", label: "CLUB DOCS", desc: "Constitution, handbook, internal standards." },
+    { key: "scholarships", label: "SCHOLARSHIPS", desc: "Scholarship opportunities and grants for members." },
+    { key: "community", label: "COMMUNITY", desc: "Other mountaineering communities + ways to connect." },
+    { key: "perks", label: "PERKS", desc: "Discounts, partnerships, and club benefits." },
   ];
 
   const docsByFolder: Record<
     FolderKey,
     { title: string; desc: string; href: string; tag?: string }[]
   > = {
-    trip: [],
-    safety: [],
-    leadership: [
+    trip: [
       {
         title: "Trip Lead Requirements",
         desc: "Requirements and standards to lead MCA trips.",
@@ -540,7 +365,55 @@ function ResourcesPanel() {
         tag: "Core",
       },
     ],
-    club: [],
+    safety: [
+      {
+        title: "Trainings & Certifications",
+        desc: "Links and guidance to get trainings and certifications.",
+        href: "https://docs.google.com/document/d/1728VyZs5yu9ZVHjm0YLFOemzpFC444MeoWlzudkpVlc/edit?usp=sharing",
+        tag: "Starter",
+      },
+    ],
+    club: [
+      {
+        title: "MCA Constitution",
+        desc: "Club structure, bylaws, and standards.",
+        href: "https://docs.google.com/document/d/1CTrwiLUBKHr0SxZPUCPeQbCh45u8hpWcBWShdq6ydSM/edit?usp=sharing",
+        tag: "Core",
+      },
+      {
+        title: "MCA Leader Handbook",
+        desc: "Leader expectations, trip operations, and best practices.",
+        href: "https://docs.google.com/document/d/1EjaF55Jssa_zOjDaEGnCpJq3qWocq-Aw7-2lcHlNbvc/edit?usp=sharing",
+        tag: "Core",
+      },
+    ],
+    scholarships: [
+      {
+        title: "Scholarships & Grants",
+        desc: "Scholarship opportunities and funding resources.",
+        href: "https://docs.google.com/document/d/10nj5-XzdDFhxrq_N63V0afARjfj9587QcXEkl83zULQ/edit?usp=sharing",
+        tag: "Featured",
+      },
+    ],
+    community: [
+      {
+        title: "Other Mountaineering Communities",
+        desc: "Communities, networks, and places to connect.",
+        href: "https://docs.google.com/document/d/1yD_hgmVmUaSK6TKiqNo5_BvWH-b-Gh-0GoNcxkaFxEU/edit?usp=sharing",
+      },
+      {
+        title: "Jobs in Mountaineering",
+        desc: "Jobs and pathways related to mountaineering and the outdoors.",
+        href: "https://docs.google.com/document/d/1CXgie7euSoLiFTvQ2MQZ03cjE16M5fEh7J7XReFp6iM/edit?usp=sharing",
+      },
+    ],
+    perks: [
+      {
+        title: "Club Perks & Discounts",
+        desc: "Discounts club members get and other perks.",
+        href: "https://docs.google.com/document/d/1QFAoM2aao97JoGmAfW31tdhEWMQ0d0ke46_GClttt8U/edit?usp=sharing",
+      },
+    ],
   };
 
   const activeDocs = docsByFolder[activeFolder];
@@ -549,30 +422,25 @@ function ResourcesPanel() {
     <div className="w-full max-w-4xl mx-auto px-4 md:px-8 text-left">
       {/* Header */}
       <div className="mb-6">
-        <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">
-          RESOURCES
-        </h2>
+        <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">RESOURCES</h2>
         <div className="mt-2 h-px w-44 bg-white/30" />
       </div>
 
       {/* Intro */}
       <p className="text-white/80 leading-relaxed">
-        A curated set of documents and references for training, trip readiness,
-        and club standards.
+        A curated set of documents and references for training, trip readiness, and club standards.
       </p>
 
-      {/* Featured doc */}
+      {/* Featured doc: Scholarships & Grants */}
       <div className="mt-6 rounded-2xl bg-white/5 ring-1 ring-white/10 p-5 md:p-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <div className="text-white/90 text-xs tracking-[0.35em] uppercase">
-              Featured
-            </div>
+            <div className="text-white/90 text-xs tracking-[0.35em] uppercase">Featured</div>
             <h3 className="mt-2 text-xl md:text-2xl font-semibold text-white/95">
-              MCA Resource Document
+              Scholarships & Grants
             </h3>
             <p className="mt-2 text-white/75 leading-relaxed">
-              Our living guide with club info, planning notes, and key references.
+              Funding opportunities for mountaineering, leadership, and outdoor access.
             </p>
           </div>
 
@@ -585,7 +453,6 @@ function ResourcesPanel() {
             >
               OPEN DOC
             </a>
-
             <a
               href="https://docs.google.com/document/d/10nj5-XzdDFhxrq_N63V0afARjfj9587QcXEkl83zULQ/edit?usp=sharing"
               target="_blank"
@@ -599,7 +466,7 @@ function ResourcesPanel() {
 
         <div className="mt-5 overflow-hidden rounded-xl ring-1 ring-white/10 bg-black/30">
           <iframe
-            title="MCA Resource Document Preview"
+            title="Scholarships & Grants Preview"
             src="https://docs.google.com/document/d/10nj5-XzdDFhxrq_N63V0afARjfj9587QcXEkl83zULQ/preview"
             className="w-full"
             style={{ height: "520px", border: 0 }}
@@ -607,14 +474,13 @@ function ResourcesPanel() {
         </div>
 
         <p className="mt-3 text-white/60 text-sm">
-          If the preview doesn’t load, the doc’s embed setting may be
-          restricted—use “OPEN DOC”.
+          If the preview doesn’t load, the doc’s embed setting may be restricted—use “OPEN DOC”.
         </p>
       </div>
 
       {/* Folder buttons */}
       <div className="mt-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {folders.map((f) => {
             const isActive = f.key === activeFolder;
             return (
@@ -623,17 +489,11 @@ function ResourcesPanel() {
                 onClick={() => setActiveFolder(f.key)}
                 className={[
                   "rounded-xl px-4 py-3 text-left ring-1 transition",
-                  isActive
-                    ? "bg-white/15 ring-white/25"
-                    : "bg-white/5 ring-white/10 hover:bg-white/10",
+                  isActive ? "bg-white/15 ring-white/25" : "bg-white/5 ring-white/10 hover:bg-white/10",
                 ].join(" ")}
               >
-                <div className="text-white/95 text-xs tracking-[0.35em] uppercase">
-                  {f.label}
-                </div>
-                <div className="mt-2 text-white/75 text-sm leading-snug">
-                  {f.desc}
-                </div>
+                <div className="text-white/95 text-xs tracking-[0.35em] uppercase">{f.label}</div>
+                <div className="mt-2 text-white/75 text-sm leading-snug">{f.desc}</div>
               </button>
             );
           })}
@@ -641,9 +501,21 @@ function ResourcesPanel() {
 
         {/* Folder contents */}
         <div className="mt-5 rounded-2xl bg-white/5 ring-1 ring-white/10 p-5">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <div className="text-white/90 text-xs tracking-[0.35em] uppercase">Folder</div>
+              <div className="mt-1 text-white/95 text-lg font-semibold">{folders.find((f) => f.key === activeFolder)?.label}</div>
+            </div>
+
+            <div className="hidden md:flex items-center gap-2 text-white/55 text-xs">
+              <span className="tracking-[0.25em] uppercase">Documents</span>
+              <span className="text-white/45">({activeDocs.length})</span>
+            </div>
+          </div>
+
           {activeDocs.length === 0 ? (
             <p className="mt-4 text-white/70 text-sm">
-              Nothing here yet — we’ll add documents as they’re published.
+              Nothing here yet — we can add documents as you publish them.
             </p>
           ) : (
             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -662,9 +534,7 @@ function ResourcesPanel() {
                           </span>
                         ) : null}
                       </div>
-                      <div className="mt-1 text-white/75 text-sm leading-relaxed">
-                        {d.desc}
-                      </div>
+                      <div className="mt-1 text-white/75 text-sm leading-relaxed">{d.desc}</div>
                     </div>
 
                     <a
