@@ -372,103 +372,161 @@ export default function ASUMountaineeringSite() {
     {/* RESOURCES */}
 {route === "/resources" && (
   <Overlay onClose={() => nav("/") as Route}>
-    <div className="w-full max-w-4xl mx-auto px-4 md:px-8 text-left">
-      {/* Header */}
-      <div className="mb-6">
-        <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">
-          RESOURCES
-        </h2>
-        <div className="mt-2 h-px w-44 bg-white/30" />
-      </div>
+    {(() => {
+      type FolderKey = "trip" | "safety" | "leadership" | "club";
+      const [activeFolder, setActiveFolder] = useState<FolderKey>("leadership");
 
-      {/* Intro */}
-      <p className="text-white/80 leading-relaxed">
-        A curated set of documents and references for training, trip readiness, and club standards.
-      </p>
+      const folders: { key: FolderKey; label: string; desc: string }[] = [
+        { key: "trip", label: "TRIP PLANNING", desc: "Templates, checklists, logistics, and planning tools." },
+        { key: "safety", label: "SAFETY", desc: "Risk management, emergency readiness, winter policy, comms." },
+        { key: "leadership", label: "LEADERSHIP", desc: "How we lead: requirements, expectations, training pathways." },
+        { key: "club", label: "CLUB DOCS", desc: "Constitution, officer structure, internal standards." },
+      ];
 
-      {/* Featured doc */}
-      <div className="mt-6 rounded-2xl bg-white/5 ring-1 ring-white/10 p-5 md:p-6">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <div className="text-white/90 text-xs tracking-[0.35em] uppercase">
-              Featured
+      const docsByFolder: Record<
+        FolderKey,
+        { title: string; desc: string; href: string; tag?: string }[]
+      > = {
+        trip: [],
+        safety: [],
+        leadership: [
+          {
+            title: "Trip Lead Requirements",
+            desc: "Requirements and standards to lead MCA trips.",
+            href: "https://docs.google.com/document/d/1ofzv634Y10yx6ZnCrBMkwldAIk3gMtVjT7mwrhpQImM/edit?usp=sharing",
+            tag: "Core",
+          },
+        ],
+        club: [],
+      };
+
+      const activeDocs = docsByFolder[activeFolder];
+
+      return (
+        <div className="w-full max-w-4xl mx-auto px-4 md:px-8 text-left">
+          {/* Header */}
+          <div className="mb-6">
+            <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">
+              RESOURCES
+            </h2>
+            <div className="mt-2 h-px w-44 bg-white/30" />
+          </div>
+
+          <p className="text-white/80 leading-relaxed">
+            A curated set of documents and references for training, trip readiness, and club standards.
+          </p>
+
+          {/* Featured doc */}
+          <div className="mt-6 rounded-2xl bg-white/5 ring-1 ring-white/10 p-5 md:p-6">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div>
+                <div className="text-white/90 text-xs tracking-[0.35em] uppercase">
+                  Featured
+                </div>
+                <h3 className="mt-2 text-xl md:text-2xl font-semibold text-white/95">
+                  MCA Resource Document
+                </h3>
+                <p className="mt-2 text-white/75 leading-relaxed">
+                  Our living guide with club info, planning notes, and key references.
+                </p>
+              </div>
+
+              <div className="flex gap-3">
+                <a
+                  href="https://docs.google.com/document/d/10nj5-XzdDFhxrq_N63V0afARjfj9587QcXEkl83zULQ/edit?usp=sharing"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-5 py-2 rounded-lg bg-white text-black/90 text-xs font-medium tracking-[0.25em] hover:bg-white/90 transition"
+                >
+                  OPEN DOC
+                </a>
+              </div>
             </div>
-            <h3 className="mt-2 text-xl md:text-2xl font-semibold text-white/95">
-              MCA Resource Document
-            </h3>
-            <p className="mt-2 text-white/75 leading-relaxed">
-              Our living guide with club info, planning notes, and key references.
-            </p>
+
+            <div className="mt-5 overflow-hidden rounded-xl ring-1 ring-white/10 bg-black/30">
+              <iframe
+                title="MCA Resource Document Preview"
+                src="https://docs.google.com/document/d/10nj5-XzdDFhxrq_N63V0afARjfj9587QcXEkl83zULQ/preview"
+                className="w-full"
+                style={{ height: "520px", border: 0 }}
+              />
+            </div>
           </div>
 
-          <div className="flex gap-3">
-            <a
-              href="https://docs.google.com/document/d/10nj5-XzdDFhxrq_N63V0afARjfj9587QcXEkl83zULQ/edit?usp=sharing"
-              target="_blank"
-              rel="noreferrer"
-              className="px-5 py-2 rounded-lg bg-white text-black/90 text-xs font-medium tracking-[0.25em] hover:bg-white/90 transition"
-            >
-              OPEN DOC
-            </a>
+          {/* Folder buttons */}
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3">
+            {folders.map((f) => {
+              const isActive = f.key === activeFolder;
+              return (
+                <button
+                  key={f.key}
+                  onClick={() => setActiveFolder(f.key)}
+                  className={[
+                    "rounded-xl px-4 py-3 text-left ring-1 transition",
+                    isActive
+                      ? "bg-white/15 ring-white/25"
+                      : "bg-white/5 ring-white/10 hover:bg-white/10",
+                  ].join(" ")}
+                >
+                  <div className="text-white/95 text-xs tracking-[0.35em] uppercase">
+                    {f.label}
+                  </div>
+                  <div className="mt-2 text-white/75 text-sm">
+                    {f.desc}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
 
-            <a
-              href="https://docs.google.com/document/d/10nj5-XzdDFhxrq_N63V0afARjfj9587QcXEkl83zULQ/edit?usp=sharing"
-              target="_blank"
-              rel="noreferrer"
-              className="px-5 py-2 rounded-lg border border-white/25 text-white/90 text-xs font-medium tracking-[0.25em] hover:bg-white/10 transition"
-            >
-              COPY LINK
-            </a>
+          {/* Folder contents */}
+          <div className="mt-5 rounded-2xl bg-white/5 ring-1 ring-white/10 p-5">
+            {activeDocs.length === 0 ? (
+              <p className="text-white/70 text-sm">
+                Nothing here yet — we’ll add documents as they’re published.
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {activeDocs.map((d, i) => (
+                  <div
+                    key={i}
+                    className="rounded-xl bg-black/20 ring-1 ring-white/10 p-4"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <div className="text-white/95 font-semibold">
+                          {d.title}
+                          {d.tag && (
+                            <span className="ml-2 inline-block rounded-md bg-white/10 px-2 py-0.5 text-[10px] tracking-[0.25em] uppercase text-white/80">
+                              {d.tag}
+                            </span>
+                          )}
+                        </div>
+                        <div className="mt-1 text-white/75 text-sm">
+                          {d.desc}
+                        </div>
+                      </div>
+
+                      <a
+                        href={d.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="px-4 py-2 rounded-lg bg-white text-black/90 text-[11px] font-medium tracking-[0.25em]"
+                      >
+                        OPEN
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
-
-        {/* Optional “quick embed” preview (only works if sharing/embedding is allowed) */}
-        <div className="mt-5 overflow-hidden rounded-xl ring-1 ring-white/10 bg-black/30">
-          <iframe
-            title="MCA Resource Document Preview"
-            src="https://docs.google.com/document/d/10nj5-XzdDFhxrq_N63V0afARjfj9587QcXEkl83zULQ/preview"
-            className="w-full"
-            style={{ height: "520px", border: "0" }}
-          />
-        </div>
-
-        <p className="mt-3 text-white/60 text-sm">
-          If the preview doesn’t load, the doc’s embed setting may be restricted—use “OPEN DOC”.
-        </p>
-      </div>
-
-      {/* More links (placeholders you can fill later) */}
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-        {[
-          {
-            title: "Trip Planning (coming soon)",
-            desc: "Templates, gear checklists, route planning, and logistics.",
-          },
-          {
-            title: "Training & Skills (coming soon)",
-            desc: "Readiness benchmarks, practice sessions, and fundamentals.",
-          },
-          {
-            title: "Safety (coming soon)",
-            desc: "Risk management basics and emergency readiness references.",
-          },
-          {
-            title: "Club Docs (coming soon)",
-            desc: "Constitution, officer roles, and internal standards.",
-          },
-        ].map((card, i) => (
-          <div
-            key={i}
-            className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-5 hover:bg-white/7 transition"
-          >
-            <div className="text-white/95 font-semibold">{card.title}</div>
-            <div className="mt-2 text-white/75 text-sm leading-relaxed">{card.desc}</div>
-          </div>
-        ))}
-      </div>
-    </div>
+      );
+    })()}
   </Overlay>
 )}
+
 
 
       {/* JOURNAL */}
