@@ -17,7 +17,7 @@ const ROUTES = [
 
 type Route = (typeof ROUTES)[number];
 
-const INSTAGRAM_URL = "https://instagram.com/asu_mountaineering";
+const INSTAGRAM_URL = "https://www.instagram.com/mountaineeringclub_asu/";
 const INSTAGRAM_POSTS = [
   { img: "https://via.placeholder.com/300x300?text=Climb+1", url: "https://www.instagram.com/p/example1/" },
   { img: "https://via.placeholder.com/300x300?text=Meeting", url: "https://www.instagram.com/p/example2/" },
@@ -285,7 +285,7 @@ export default function ASUMountaineeringSite() {
         </Overlay>
       )}
 
-      /* JOURNAL */
+      {/* JOURNAL */}
       {route === "/journal" && (
         <Overlay onClose={() => nav("/") as Route}>
           <div className="text-white/80">Journal placeholder (upload PDFs later).</div>
