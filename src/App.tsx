@@ -369,7 +369,7 @@ export default function ASUMountaineeringSite() {
         </Overlay>
       )}
 
-    /* RESOURCES */
+    {/* RESOURCES */}
 {route === "/resources" && (
   <Overlay onClose={() => nav("/") as Route}>
     <div className="w-full max-w-4xl mx-auto px-4 md:px-8 text-left">
