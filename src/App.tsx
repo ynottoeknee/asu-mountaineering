@@ -205,7 +205,7 @@ export default function ASUMountaineeringSite() {
                   What is the difference between the Arizona State Outdoors Club and the Mountaineering Club at Arizona State University?
                 </div>
                 <p className="text-base leading-relaxed text-white/85">
-                  You should absolutely do both! Our mountaineering club is focussed more on larger objectives that are out of state while the Outdoors club engage in a larger variety of outings while mostly staying in state. That being said, our mountaineering club still goes on lots of smaller trips for fun and team bonding.
+                  You should absolutely do both! Our mountaineering club is focused more on larger objectives that are out of state while the outdoors club engage in a larger variety of outings while mostly staying in state. That being said, our mountaineering club still goes on lots of smaller trips for fun and team bonding.
                 </p>
               </div>
               <div className="space-y-2">
