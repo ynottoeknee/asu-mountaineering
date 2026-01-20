@@ -79,7 +79,7 @@ function InstagramGrid() {
       <div className="flex items-center justify-between mb-4">
         <h3 className="uppercase tracking-widest text-sm text-white/80">Our Instagram</h3>
         <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="text-pink-400 hover:text-pink-300 text-sm">
-          @{INSTAGRAM_URL.split("/").pop()}
+         @{INSTAGRAM_URL.split("/").filter(Boolean).pop()}
         </a>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
