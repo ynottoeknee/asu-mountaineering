@@ -241,7 +241,7 @@ export default function ASUMountaineeringSite() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {[
-                { name: "David Jacobs", img: "", bio: "The best advisor!" },
+                { name: "David Jacobs", img: "377d2192-35b7-41ac-8e64-3a84a7d9001b.jpg", bio: "The best advisor!" },
                 { name: "Tony & Charlie", img: "/charlie%20and%20I.jpeg", bio: "" },
                 { name: "Anabelle", img: "", bio: "" },
                 { name: "Ani", img: "", bio: "" },
