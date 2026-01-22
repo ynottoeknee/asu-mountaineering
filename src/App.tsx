@@ -244,7 +244,7 @@ export default function ASUMountaineeringSite() {
                 { name: "David Jacobs", img: "377d2192-35b7-41ac-8e64-3a84a7d9001b.jpg", bio: "The best advisor!" },
                 { name: "Tony & Charlie", img: "/charlie%20and%20I.jpeg", bio: "" },
                 { name: "Anabelle", img: "anabelle.jpeg", bio: "" },
-                { name: "Max", img: "Max.jpeg", bio: "Spinjutsu Master" },
+                { name: "Max", img: "Max.jpg", bio: "Spinjutsu Master" },
                 { name: "Ani", img: "", bio: "" },
               ].map((m, i) => (
                 <div
