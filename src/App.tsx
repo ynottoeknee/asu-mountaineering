@@ -79,7 +79,7 @@ function InstagramGrid() {
       <div className="flex items-center justify-between mb-4">
         <h3 className="uppercase tracking-widest text-sm text-white/80">Our Instagram</h3>
         <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="text-pink-400 hover:text-pink-300 text-sm">
-         @{INSTAGRAM_URL.split("/").filter(Boolean).pop()}
+          @{INSTAGRAM_URL.split("/").filter(Boolean).pop()}
         </a>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -113,7 +113,9 @@ export default function ASUMountaineeringSite() {
     <BackgroundWrapper>
       {/* HOME */}
       <div
-        className={`flex flex-col items-center justify-start pt-36 pb-8 px-4 text-center ${route === "/" ? "min-h-screen" : "hidden"}`}
+        className={`flex flex-col items-center justify-start pt-36 pb-8 px-4 text-center ${
+          route === "/" ? "min-h-screen" : "hidden"
+        }`}
       >
         <h1
           className="text-4xl md:text-7xl font-semibold text-white/95 leading-[1.05]"
@@ -181,9 +183,7 @@ export default function ASUMountaineeringSite() {
       {route === "/intro" && (
         <Overlay onClose={() => nav("/") as Route}>
           <div className="w-full max-w-3xl mx-auto px-4 md:px-8 text-left">
-            <h2 className="text-2xl md:text-3xl font-semibold text-white/95 mb-4">
-              Welcome to the MCA&apos;s website!
-            </h2>
+            <h2 className="text-2xl md:text-3xl font-semibold text-white/95 mb-4">Welcome to the MCA&apos;s website!</h2>
             <p className="text-base md:text-lg leading-relaxed text-white/85 mb-8">
               First and foremost MCA is a community. The club is centered around us pushing ourselves mentally and physically in the mountains, but we also aim to support our members in all of their pursuits.
             </p>
@@ -195,7 +195,9 @@ export default function ASUMountaineeringSite() {
                 </p>
               </div>
               <div className="space-y-2">
-                <div className="text-lg md:text-xl font-semibold text-white/95">What if I don’t have any backpacking or mountaineering experience?</div>
+                <div className="text-lg md:text-xl font-semibold text-white/95">
+                  What if I don’t have any backpacking or mountaineering experience?
+                </div>
                 <p className="text-base leading-relaxed text-white/85">
                   No worries. The point of this club is to decrease the barriers of entry to outdoor activities, and help more people go on sick adventures!
                 </p>
@@ -237,7 +239,11 @@ export default function ASUMountaineeringSite() {
               <div className="mx-auto mt-2 h-px w-40 bg-white/30" />
             </div>
             <div className="mb-10 rounded-2xl overflow-hidden shadow-xl">
-              <img src="/bos.jpg" alt="Mountaineering Club group in the mountains" className="w-full h-80 object-cover opacity-90 hover:opacity-100 transition duration-500" />
+              <img
+                src="/bos.jpg"
+                alt="Mountaineering Club group in the mountains"
+                className="w-full h-80 object-cover opacity-90 hover:opacity-100 transition duration-500"
+              />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {[
@@ -260,7 +266,11 @@ export default function ASUMountaineeringSite() {
                   key={i}
                   className="relative group overflow-hidden rounded-3xl ring-1 ring-white/10 bg-gradient-to-b from-white/5 to-black/40 hover:shadow-2xl transition-all duration-500"
                 >
-                  <img src={m.img} alt={m.name} className="w-full h-80 object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition duration-700 ease-out" />
+                  <img
+                    src={m.img}
+                    alt={m.name}
+                    className="w-full h-80 object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition duration-700 ease-out"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70" />
                   <div className="absolute bottom-0 w-full text-center pb-6 transform translate-y-6 group-hover:translate-y-0 transition duration-500">
                     <h3 className="text-white text-lg font-bold tracking-wide drop-shadow-lg">{m.name}</h3>
@@ -325,19 +335,34 @@ export default function ASUMountaineeringSite() {
             <form className="grid md:grid-cols-2 gap-4" onSubmit={(e) => e.preventDefault()}>
               <div className="md:col-span-1">
                 <label className="block text-white/70 text-xs mb-2 tracking-[0.25em]">NAME</label>
-                <input className="w-full rounded-md bg-transparent text-white/90 px-4 py-2 ring-1 ring-white/20 focus:ring-2 focus:ring-white/40 outline-none" placeholder="" />
+                <input
+                  className="w-full rounded-md bg-transparent text-white/90 px-4 py-2 ring-1 ring-white/20 focus:ring-2 focus:ring-white/40 outline-none"
+                  placeholder=""
+                />
               </div>
               <div className="md:col-span-1">
                 <label className="block text-white/70 text-xs mb-2 tracking-[0.25em]">EMAIL</label>
-                <input type="email" className="w-full rounded-md bg-transparent text-white/90 px-4 py-2 ring-1 ring-white/20 focus:ring-2 focus:ring-white/40 outline-none" placeholder="" />
+                <input
+                  type="email"
+                  className="w-full rounded-md bg-transparent text-white/90 px-4 py-2 ring-1 ring-white/20 focus:ring-2 focus:ring-white/40 outline-none"
+                  placeholder=""
+                />
               </div>
               <div className="md:col-span-2">
                 <label className="block text-white/70 text-xs mb-2 tracking-[0.25em]">MESSAGE</label>
-                <textarea rows={6} className="w-full rounded-md bg-transparent text-white/90 px-4 py-3 ring-1 ring-white/20 focus:ring-2 focus:ring-white/40 outline-none" placeholder="" />
+                <textarea
+                  rows={6}
+                  className="w-full rounded-md bg-transparent text-white/90 px-4 py-3 ring-1 ring-white/20 focus:ring-2 focus:ring-white/40 outline-none"
+                  placeholder=""
+                />
               </div>
               <div className="md:col-span-2 flex items-center gap-3 pt-2">
-                <button className="px-5 py-2 rounded-md bg-white text-black/80 tracking-[0.3em] text-xs font-medium hover:bg-white/90 transition">SEND MESSAGE</button>
-                <button type="reset" className="px-5 py-2 rounded-md border border-white/30 text-white/90 tracking-[0.3em] text-xs hover:bg-white/10">RESET</button>
+                <button className="px-5 py-2 rounded-md bg-white text-black/80 tracking-[0.3em] text-xs font-medium hover:bg-white/90 transition">
+                  SEND MESSAGE
+                </button>
+                <button type="reset" className="px-5 py-2 rounded-md border border-white/30 text-white/90 tracking-[0.3em] text-xs hover:bg-white/10">
+                  RESET
+                </button>
               </div>
             </form>
           </div>
@@ -348,11 +373,29 @@ export default function ASUMountaineeringSite() {
 }
 
 /* -----------------------------
-   RESOURCES PANEL (folders + docs)
+   RESOURCES PANEL (folders + docs + partnerships)
 ----------------------------- */
 function ResourcesPanel() {
   type FolderKey = "trip" | "safety" | "club" | "scholarships" | "community" | "perks";
   const [activeFolder, setActiveFolder] = useState<FolderKey>("trip");
+
+  // Put logo files in /public/partners/...
+  const PARTNERS = [
+    {
+      name: "Arizona Hiking Shack",
+      logoSrc: "fb8892c5-e8fe-4d0b-84d0-0661df7d948c.jpg",
+      href: "https://hikingshack.com/",
+      desc: "Local support that helps keep MCA trips and member access moving.",
+      clickable: true,
+    },
+    {
+      name: "Red Bull",
+      logoSrc: "955d8046-ab43-4da6-b44a-73d269014051.jpg",
+      href: "",
+      desc: "Support that helps fuel meetings and club energy during busy weeks.",
+      clickable: false,
+    },
+  ] as const;
 
   const folders: { key: FolderKey; label: string; desc: string }[] = [
     { key: "trip", label: "TRIP PLANNING", desc: "Requirements, planning docs, templates, logistics." },
@@ -363,10 +406,7 @@ function ResourcesPanel() {
     { key: "perks", label: "PERKS", desc: "Discounts, partnerships, and club benefits." },
   ];
 
-  const docsByFolder: Record<
-    FolderKey,
-    { title: string; desc: string; href: string; tag?: string }[]
-  > = {
+  const docsByFolder: Record<FolderKey, { title: string; desc: string; href: string; tag?: string }[]> = {
     trip: [
       {
         title: "Trip Lead Requirements",
@@ -437,21 +477,15 @@ function ResourcesPanel() {
       </div>
 
       {/* Intro */}
-      <p className="text-white/80 leading-relaxed">
-        A curated set of documents and references for training, trip readiness, and club standards.
-      </p>
+      <p className="text-white/80 leading-relaxed">A curated set of documents and references for training, trip readiness, and club standards.</p>
 
       {/* Featured doc: Scholarships & Grants */}
       <div className="mt-6 rounded-2xl bg-white/5 ring-1 ring-white/10 p-5 md:p-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <div className="text-white/90 text-xs tracking-[0.35em] uppercase">Featured</div>
-            <h3 className="mt-2 text-xl md:text-2xl font-semibold text-white/95">
-              Scholarships & Grants
-            </h3>
-            <p className="mt-2 text-white/75 leading-relaxed">
-              Funding opportunities for mountaineering, leadership, and outdoor access.
-            </p>
+            <h3 className="mt-2 text-xl md:text-2xl font-semibold text-white/95">Scholarships & Grants</h3>
+            <p className="mt-2 text-white/75 leading-relaxed">Funding opportunities for mountaineering, leadership, and outdoor access.</p>
           </div>
 
           <div className="flex gap-3">
@@ -483,9 +517,7 @@ function ResourcesPanel() {
           />
         </div>
 
-        <p className="mt-3 text-white/60 text-sm">
-          If the preview doesn’t load, the doc’s embed setting may be restricted—use “OPEN DOC”.
-        </p>
+        <p className="mt-3 text-white/60 text-sm">If the preview doesn’t load, the doc’s embed setting may be restricted—use “OPEN DOC”.</p>
       </div>
 
       {/* Folder buttons */}
@@ -524,16 +556,11 @@ function ResourcesPanel() {
           </div>
 
           {activeDocs.length === 0 ? (
-            <p className="mt-4 text-white/70 text-sm">
-              Nothing here yet — we can add documents as you publish them.
-            </p>
+            <p className="mt-4 text-white/70 text-sm">Nothing here yet — we can add documents as you publish them.</p>
           ) : (
             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
               {activeDocs.map((d, i) => (
-                <div
-                  key={i}
-                  className="rounded-xl bg-black/20 ring-1 ring-white/10 p-4 hover:bg-black/30 transition"
-                >
+                <div key={i} className="rounded-xl bg-black/20 ring-1 ring-white/10 p-4 hover:bg-black/30 transition">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <div className="text-white/95 font-semibold">
@@ -571,6 +598,90 @@ function ResourcesPanel() {
               ))}
             </div>
           )}
+        </div>
+
+        {/* Support & Partnerships (beneath folder section) */}
+        <div className="mt-10">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="text-white/90 text-xs tracking-[0.35em] uppercase">Support & Partnerships</div>
+              <h3 className="mt-1 text-lg md:text-xl font-semibold text-white/95">Partners who help make access possible</h3>
+              <p className="mt-2 text-white/75 text-sm leading-relaxed max-w-2xl">
+                We work with organizations and local businesses that support outdoor access, sustainability, and community-driven initiatives.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-5 space-y-4">
+            {PARTNERS.map((p) => {
+              const Logo = (
+                <img
+                  src={p.logoSrc}
+                  alt={`${p.name} logo`}
+                  className="h-16 w-auto object-contain rounded-lg bg-white/90 p-2"
+                  loading="lazy"
+                />
+              );
+
+              return (
+                <div key={p.name} className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div className="shrink-0">
+                      {p.clickable ? (
+                        <a
+                          href={p.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-block hover:opacity-90 transition"
+                          aria-label={`Visit ${p.name} website`}
+                        >
+                          {Logo}
+                        </a>
+                      ) : (
+                        Logo
+                      )}
+                    </div>
+
+                    <div className="min-w-0">
+                      <div className="text-white/95 font-semibold">{p.name}</div>
+                      <div className="mt-1 text-white/75 text-sm leading-relaxed">{p.desc}</div>
+                      {p.clickable ? (
+                        <div className="mt-2">
+                          <a
+                            href={p.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-white/55 hover:text-white/85 text-xs underline underline-offset-4"
+                          >
+                            Visit website
+                          </a>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Subtle CTA */}
+          <div className="mt-6 rounded-2xl bg-black/20 ring-1 ring-white/10 p-5">
+            <p className="text-white/80 text-sm leading-relaxed">
+              Interested in supporting student-led outdoor access, education, or community initiatives?{" "}
+              <a
+                href="#/contact"
+                onClick={(e) => {
+                  // keep it as a normal hash nav so it works in your router
+                  e.preventDefault();
+                  window.location.hash = "#/contact";
+                }}
+                className="text-white/90 hover:text-white underline underline-offset-4"
+              >
+                Reach out here
+              </a>
+              .
+            </p>
+          </div>
         </div>
       </div>
     </div>
