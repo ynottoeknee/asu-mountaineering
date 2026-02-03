@@ -96,18 +96,33 @@ function InstagramGrid() {
 export default function ASUMountaineeringSite() {
   const [route, setRoute] = useState<Route>("/");
 
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = (window.location.hash.replace("#", "") || "/") as Route;
-      setRoute(ROUTES.includes(hash) ? hash : "/");
+    useEffect(() => {
+    // Read the current pathname and map to one of our ROUTES.
+    const handleLocation = () => {
+      // normalize path: "/" or "/intro" etc.
+      let p = window.location.pathname || "/";
+      // keep trailing slashes trimmed
+      if (p.length > 1 && p.endsWith("/")) p = p.slice(0, -1);
+      // For consistency, treat root as "/"
+      const normalized = p === "" ? "/" : p;
+      setRoute(ROUTES.includes(normalized as Route) ? (normalized as Route) : "/");
     };
-    window.addEventListener("hashchange", handleHashChange);
-    handleHashChange();
-    if (!window.location.hash) window.location.hash = "#/";
-    return () => window.removeEventListener("hashchange", handleHashChange);
+
+    // Handle back/forward and initial load
+    window.addEventListener("popstate", handleLocation);
+    handleLocation();
+
+    return () => window.removeEventListener("popstate", handleLocation);
   }, []);
 
-  const nav = (path: Route) => (window.location.hash = path === "/" ? "#/" : `#${path}`);
+  // Navigate using history API so the URL changes to /about etc (no hash).
+  const nav = (path: Route) => {
+    const to = path === "/" ? "/" : path;
+    // push state so the browser URL updates and we still render client-side
+    window.history.pushState({}, "", to);
+    // update React state to show the target pane
+    setRoute(to as Route);
+  };
 
   return (
     <BackgroundWrapper>
