@@ -447,7 +447,7 @@ export default function ASUMountaineeringSite() {
           }}
         >
           <div className="flex items-end justify-center gap-4">
-            <span className="whitespace-nowrap">MNTAINEERING CLUB</span>
+            <span className="whitespace-nowrap">MaNTAINEERING CLUB</span>
             <span
               className="flex flex-col items-center justify-center"
               style={{
@@ -501,7 +501,7 @@ export default function ASUMountaineeringSite() {
 
       {/* INTRO */}
       {route === "/intro" && (
-        <Overlay onClose={() => nav("/") as Route}>
+        <Overlay onClose={() => nav("/")}>
           <div className="w-full max-w-3xl mx-auto px-4 md:px-8 text-left">
             <h2 className="text-2xl md:text-3xl font-semibold text-white/95 mb-4">Welcome to the MCA&apos;s website!</h2>
             <p className="text-base md:text-lg leading-relaxed text-white/85 mb-8">
@@ -563,7 +563,7 @@ export default function ASUMountaineeringSite() {
 
       {/* TEAM */}
       {route === "/team" && (
-        <Overlay onClose={() => nav("/") as Route}>
+        <Overlay onClose={() => nav("/")}>
           <div>
             <div className="mb-6 text-center">
               <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">OUR TEAM</h2>
@@ -618,28 +618,28 @@ export default function ASUMountaineeringSite() {
 
       {/* INITIATIVES */}
       {route === "/initiatives" && (
-        <Overlay onClose={() => nav("/") as Route}>
+        <Overlay onClose={() => nav("/")}>
           <InitiativesCalendar />
         </Overlay>
       )}
 
       {/* RESOURCES */}
       {route === "/resources" && (
-        <Overlay onClose={() => nav("/") as Route}>
+        <Overlay onClose={() => nav("/")}>
           <ResourcesPanel />
         </Overlay>
       )}
 
       {/* JOURNAL */}
       {route === "/journal" && (
-        <Overlay onClose={() => nav("/") as Route}>
+        <Overlay onClose={() => nav("/")}>
           <JournalGallery />
         </Overlay>
       )}
 
       {/* BETWEEN PEAKS */}
       {route === "/betweenpeaks" && (
-        <Overlay onClose={() => nav("/") as Route}>
+        <Overlay onClose={() => nav("/")}>
           <div className="text-center space-y-6">
             <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">Between Peaks</h2>
             <div className="mx-auto mt-2 h-px w-40 bg-white/30" />
@@ -651,7 +651,7 @@ export default function ASUMountaineeringSite() {
 
       {/* CONTACT */}
       {route === "/contact" && (
-        <Overlay onClose={() => nav("/") as Route}>
+        <Overlay onClose={() => nav("/")}>
           <div>
             <div className="mb-6">
               <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">CONTACT</h2>
