@@ -137,7 +137,7 @@ function JournalGallery() {
     {
       title: "Humphreys Peak",
       date: "Feb 24",
-      coverImg: "/thanksani/humphreys-poster.png",
+      coverImg: "/Humphreys Peak(1).png",
       pdfHref: "", // later: "/pdfs/humphreys.pdf"
       accent: "rgba(140,29,64,0.55)",
     },
@@ -164,10 +164,6 @@ function JournalGallery() {
         <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">JOURNAL</h2>
         <div className="mt-2 h-px w-40 bg-white/30" />
       </div>
-
-      <p className="text-white/80 leading-relaxed max-w-3xl">
-        Posters, trip recaps, and downloadable PDFs. Each cover can link to a PDF later (think “magazine shelf” vibe).
-      </p>
 
       {/* Artistic “shelf” */}
       <div className="mt-7 rounded-3xl bg-black/25 ring-1 ring-white/10 p-5 md:p-7 overflow-hidden relative">
@@ -447,7 +443,7 @@ export default function ASUMountaineeringSite() {
           }}
         >
           <div className="flex items-end justify-center gap-4">
-            <span className="whitespace-nowrap">MaNTAINEERING CLUB</span>
+            <span className="whitespace-nowrap">MOUNTAINEERING CLUB</span>
             <span
               className="flex flex-col items-center justify-center"
               style={{
@@ -720,7 +716,7 @@ function ResourcesPanel() {
     },
     {
       name: "KAYA",
-      logoSrc: "/thanksani/kayaweb.svg",
+      logoSrc: "/kayaweb.svg",
       href: "https://kayaclimb.com/",
       desc: "Providing MCA with KAYA Pro — helping members find outdoor boulders and discover new areas to climb.",
       clickable: true,
