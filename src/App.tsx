@@ -112,127 +112,63 @@ function InstagramGrid() {
 }
 
 /* -----------------------------
-   JOURNAL: Poster gallery (covers + future PDFs)
+   JOURNAL: Poster gallery
 ----------------------------- */
-type JournalPoster = {
-  title: string;
-  date?: string;
-  coverImg: string; // image in /public
-  pdfHref?: string; // optional future pdf link in /public/pdfs/...
-  accent?: string; // optional glow color
-};
 
 function JournalGallery() {
-  /**
-   * ✅ Put your current poster image in:
-   *   /public/thanksani/humphreys-poster.png
-   * You said it’s in “public/thanksani”. If your filename has spaces, rename it to avoid deploy/path issues.
-   *
-   * Future posters:
-   *  - drop images in /public/journal/
-   *  - drop PDFs in /public/pdfs/
-   *  - then add entries here.
-   */
-  const posters: JournalPoster[] = [
+  const posters = [
     {
       title: "Humphreys Peak",
       date: "Feb 24",
-      coverImg: "/Humphreys Peak(1).png",
-      pdfHref: "", // later: "/pdfs/humphreys.pdf"
-      accent: "rgba(140,29,64,0.55)",
-    },
-    // Future placeholder examples (delete if you want)
-    {
-      title: "Future Trip Poster",
-      date: "TBD",
-      coverImg: "/journal/placeholder1.jpg",
-      pdfHref: "",
-      accent: "rgba(160,90,255,0.45)",
-    },
-    {
-      title: "Future Workshop Poster",
-      date: "TBD",
-      coverImg: "/journal/placeholder2.jpg",
-      pdfHref: "",
-      accent: "rgba(255,140,0,0.35)",
+      img: "/humphreys-poster.png",
+      pdf: "", // later: "/pdfs/humphreys.pdf"
     },
   ];
 
   return (
     <div className="w-full max-w-5xl mx-auto px-4 md:px-8 text-left">
-      <div className="mb-6">
+      <div className="mb-10">
         <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">JOURNAL</h2>
         <div className="mt-2 h-px w-40 bg-white/30" />
       </div>
 
-      {/* Artistic “shelf” */}
-      <div className="mt-7 rounded-3xl bg-black/25 ring-1 ring-white/10 p-5 md:p-7 overflow-hidden relative">
-        <div className="absolute inset-0 opacity-70 pointer-events-none" style={{ background: "radial-gradient(circle at 20% 10%, rgba(255,255,255,0.08), transparent 55%)" }} />
-        <div className="absolute inset-0 opacity-60 pointer-events-none" style={{ background: "radial-gradient(circle at 90% 80%, rgba(140,29,64,0.20), transparent 60%)" }} />
-        <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full blur-3xl opacity-20 pointer-events-none" style={{ background: "rgba(255,255,255,0.18)" }} />
-        <div className="absolute -bottom-28 -left-28 h-80 w-80 rounded-full blur-3xl opacity-15 pointer-events-none" style={{ background: "rgba(140,29,64,0.35)" }} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {posters.map((p, i) => {
+          const Wrapper: any = p.pdf ? "a" : "div";
+          const wrapperProps = p.pdf
+            ? { href: p.pdf, target: "_blank", rel: "noreferrer" }
+            : {};
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {posters.map((p, idx) => {
-            const clickable = Boolean(p.pdfHref && p.pdfHref.trim().length > 0);
+          return (
+            <Wrapper
+              key={i}
+              {...wrapperProps}
+              className="group block overflow-hidden rounded-3xl bg-black/30 ring-1 ring-white/10 hover:ring-white/20 transition"
+            >
+              <div className="relative">
+                <img
+                  src={p.img}
+                  alt={p.title}
+                  className="w-full aspect-[4/5] object-cover opacity-95 group-hover:scale-[1.02] transition duration-700 ease-out"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0" />
+              </div>
 
-            const CardInner = (
-              <div
-                className="group relative rounded-2xl overflow-hidden ring-1 ring-white/10 bg-black/30 hover:bg-black/40 transition"
-                style={{
-                  boxShadow: p.accent ? `0 0 0 1px rgba(255,255,255,0.06), 0 20px 60px -30px ${p.accent}` : undefined,
-                }}
-              >
-                <div className="relative">
-                  <img
-                    src={p.coverImg}
-                    alt={`${p.title} poster`}
-                    className="w-full aspect-[4/5] object-cover opacity-90 group-hover:opacity-100 group-hover:scale-[1.02] transition duration-700 ease-out"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                </div>
-
-                <div className="p-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <div className="text-white/95 font-semibold truncate">{p.title}</div>
-                      <div className="mt-1 text-white/70 text-sm">{p.date ?? ""}</div>
-                    </div>
-
-                    <div className="shrink-0">
-                      <span className="inline-flex items-center rounded-lg bg-white/10 px-2.5 py-1 text-[10px] tracking-[0.25em] uppercase text-white/75 ring-1 ring-white/10">
-                        {clickable ? "PDF" : "Cover"}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mt-3 text-white/55 text-xs leading-relaxed">
-                    {clickable ? "Open the PDF" : "Add a PDF link later"}
-                  </div>
+              <div className="p-4">
+                <div className="text-white/95 font-semibold">{p.title}</div>
+                <div className="mt-1 text-white/70 text-sm">{p.date}</div>
+                <div className="mt-3 text-white/55 text-xs uppercase tracking-[0.25em]">
+                  {p.pdf ? "Open PDF" : "Cover"}
                 </div>
               </div>
-            );
-
-            return clickable ? (
-              <a key={idx} href={p.pdfHref} target="_blank" rel="noreferrer" className="block">
-                {CardInner}
-              </a>
-            ) : (
-              <div key={idx}>{CardInner}</div>
-            );
-          })}
-        </div>
-
-        <div className="mt-5 text-white/55 text-xs leading-relaxed">
-          To add a PDF later: drop it into <span className="text-white/75">/public/pdfs/</span> and set{" "}
-          <span className="text-white/75">pdfHref</span> like <span className="text-white/75">"/pdfs/yourfile.pdf"</span>.
-        </div>
+            </Wrapper>
+          );
+        })}
       </div>
     </div>
   );
 }
-
 /* -----------------------------
    INITIATIVES: Editable calendar
 ----------------------------- */
