@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 // Background images
 const mountainImgPrimary = "/McDowellMountainCentered.jpg";
@@ -18,13 +18,20 @@ const ROUTES = [
 type Route = (typeof ROUTES)[number];
 
 const INSTAGRAM_URL = "https://www.instagram.com/mountaineeringclub_asu/";
+
+/**
+ * ✅ Instagram tiles (LOCAL placeholders)
+ * Put these files in: /public/instagram/
+ *  - post1.jpg ... post6.jpg
+ * Then replace the url fields with the real IG post links when ready.
+ */
 const INSTAGRAM_POSTS = [
-  { img: "https://via.placeholder.com/300x300?text=Climb+1", url: "https://www.instagram.com/p/example1/" },
-  { img: "https://via.placeholder.com/300x300?text=Meeting", url: "https://www.instagram.com/p/example2/" },
-  { img: "https://via.placeholder.com/300x300?text=Summit", url: "https://www.instagram.com/p/example3/" },
-  { img: "https://via.placeholder.com/300x300?text=Training", url: "https://www.instagram.com/p/example4/" },
-  { img: "https://via.placeholder.com/300x300?text=Group+Hike", url: "https://www.instagram.com/p/example5/" },
-  { img: "https://via.placeholder.com/300x300?text=Desert+Trip", url: "https://www.instagram.com/p/example6/" },
+  { img: "/instagram/post1.jpg", url: "https://www.instagram.com/p/example1/" },
+  { img: "/instagram/post2.jpg", url: "https://www.instagram.com/p/example2/" },
+  { img: "/instagram/post3.jpg", url: "https://www.instagram.com/p/example3/" },
+  { img: "/instagram/post4.jpg", url: "https://www.instagram.com/p/example4/" },
+  { img: "/instagram/post5.jpg", url: "https://www.instagram.com/p/example5/" },
+  { img: "/instagram/post6.jpg", url: "https://www.instagram.com/p/example6/" },
 ];
 
 function BackgroundWrapper({ children }: { children: React.ReactNode }) {
@@ -75,19 +82,317 @@ function Overlay({ children, onClose }: { children: React.ReactNode; onClose: ()
 
 function InstagramGrid() {
   return (
-    <div className="mt-8 bg-white/5 p-4 rounded-xl">
+    <div className="mt-8 bg-white/5 p-4 rounded-xl ring-1 ring-white/10">
       <div className="flex items-center justify-between mb-4">
         <h3 className="uppercase tracking-widest text-sm text-white/80">Our Instagram</h3>
         <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="text-pink-400 hover:text-pink-300 text-sm">
           @{INSTAGRAM_URL.split("/").filter(Boolean).pop()}
         </a>
       </div>
+
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
         {INSTAGRAM_POSTS.map((p, i) => (
-          <a key={i} href={p.url} target="_blank" rel="noreferrer">
-            <img src={p.img} alt={`Instagram post ${i + 1}`} className="rounded-lg hover:opacity-80 transition" />
+          <a key={i} href={p.url} target="_blank" rel="noreferrer" className="group">
+            <img
+              src={p.img}
+              alt={`Instagram post ${i + 1}`}
+              className="rounded-lg transition w-full aspect-square object-cover ring-1 ring-white/10 group-hover:opacity-85"
+              loading="lazy"
+            />
           </a>
         ))}
+      </div>
+
+      <p className="mt-3 text-white/55 text-xs leading-relaxed">
+        Tip: keep these as simple square images in <span className="text-white/75">/public/instagram/</span>. If you ever want
+        them to “auto-update,” that requires the Instagram API (more work + more breakable).
+      </p>
+    </div>
+  );
+}
+
+/* -----------------------------
+   JOURNAL: Poster gallery (covers + future PDFs)
+----------------------------- */
+type JournalPoster = {
+  title: string;
+  date?: string;
+  coverImg: string; // image in /public
+  pdfHref?: string; // optional future pdf link in /public/pdfs/...
+  accent?: string; // optional glow color
+};
+
+function JournalGallery() {
+  /**
+   * ✅ Put your current poster image in:
+   *   /public/thanksani/humphreys-poster.png
+   * You said it’s in “public/thanksani”. If your filename has spaces, rename it to avoid deploy/path issues.
+   *
+   * Future posters:
+   *  - drop images in /public/journal/
+   *  - drop PDFs in /public/pdfs/
+   *  - then add entries here.
+   */
+  const posters: JournalPoster[] = [
+    {
+      title: "Humphreys Peak",
+      date: "Feb 24",
+      coverImg: "/thanksani/humphreys-poster.png",
+      pdfHref: "", // later: "/pdfs/humphreys.pdf"
+      accent: "rgba(140,29,64,0.55)",
+    },
+    // Future placeholder examples (delete if you want)
+    {
+      title: "Future Trip Poster",
+      date: "TBD",
+      coverImg: "/journal/placeholder1.jpg",
+      pdfHref: "",
+      accent: "rgba(160,90,255,0.45)",
+    },
+    {
+      title: "Future Workshop Poster",
+      date: "TBD",
+      coverImg: "/journal/placeholder2.jpg",
+      pdfHref: "",
+      accent: "rgba(255,140,0,0.35)",
+    },
+  ];
+
+  return (
+    <div className="w-full max-w-5xl mx-auto px-4 md:px-8 text-left">
+      <div className="mb-6">
+        <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">JOURNAL</h2>
+        <div className="mt-2 h-px w-40 bg-white/30" />
+      </div>
+
+      <p className="text-white/80 leading-relaxed max-w-3xl">
+        Posters, trip recaps, and downloadable PDFs. Each cover can link to a PDF later (think “magazine shelf” vibe).
+      </p>
+
+      {/* Artistic “shelf” */}
+      <div className="mt-7 rounded-3xl bg-black/25 ring-1 ring-white/10 p-5 md:p-7 overflow-hidden relative">
+        <div className="absolute inset-0 opacity-70 pointer-events-none" style={{ background: "radial-gradient(circle at 20% 10%, rgba(255,255,255,0.08), transparent 55%)" }} />
+        <div className="absolute inset-0 opacity-60 pointer-events-none" style={{ background: "radial-gradient(circle at 90% 80%, rgba(140,29,64,0.20), transparent 60%)" }} />
+        <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full blur-3xl opacity-20 pointer-events-none" style={{ background: "rgba(255,255,255,0.18)" }} />
+        <div className="absolute -bottom-28 -left-28 h-80 w-80 rounded-full blur-3xl opacity-15 pointer-events-none" style={{ background: "rgba(140,29,64,0.35)" }} />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {posters.map((p, idx) => {
+            const clickable = Boolean(p.pdfHref && p.pdfHref.trim().length > 0);
+
+            const CardInner = (
+              <div
+                className="group relative rounded-2xl overflow-hidden ring-1 ring-white/10 bg-black/30 hover:bg-black/40 transition"
+                style={{
+                  boxShadow: p.accent ? `0 0 0 1px rgba(255,255,255,0.06), 0 20px 60px -30px ${p.accent}` : undefined,
+                }}
+              >
+                <div className="relative">
+                  <img
+                    src={p.coverImg}
+                    alt={`${p.title} poster`}
+                    className="w-full aspect-[4/5] object-cover opacity-90 group-hover:opacity-100 group-hover:scale-[1.02] transition duration-700 ease-out"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                </div>
+
+                <div className="p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="text-white/95 font-semibold truncate">{p.title}</div>
+                      <div className="mt-1 text-white/70 text-sm">{p.date ?? ""}</div>
+                    </div>
+
+                    <div className="shrink-0">
+                      <span className="inline-flex items-center rounded-lg bg-white/10 px-2.5 py-1 text-[10px] tracking-[0.25em] uppercase text-white/75 ring-1 ring-white/10">
+                        {clickable ? "PDF" : "Cover"}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-3 text-white/55 text-xs leading-relaxed">
+                    {clickable ? "Open the PDF" : "Add a PDF link later"}
+                  </div>
+                </div>
+              </div>
+            );
+
+            return clickable ? (
+              <a key={idx} href={p.pdfHref} target="_blank" rel="noreferrer" className="block">
+                {CardInner}
+              </a>
+            ) : (
+              <div key={idx}>{CardInner}</div>
+            );
+          })}
+        </div>
+
+        <div className="mt-5 text-white/55 text-xs leading-relaxed">
+          To add a PDF later: drop it into <span className="text-white/75">/public/pdfs/</span> and set{" "}
+          <span className="text-white/75">pdfHref</span> like <span className="text-white/75">"/pdfs/yourfile.pdf"</span>.
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* -----------------------------
+   INITIATIVES: Editable calendar
+----------------------------- */
+type CalendarColorKey = "purple" | "orange" | "green" | "pink" | "red" | "white" | "gray" | "blue" | "yellow" | "teal";
+
+const CALENDAR_COLORS: Record<CalendarColorKey, { label: string; hex: string }> = {
+  purple: { label: "Purple", hex: "#A78BFA" },
+  orange: { label: "Orange", hex: "#FB923C" },
+  green: { label: "Green", hex: "#34D399" },
+  pink: { label: "Pink", hex: "#F472B6" },
+  red: { label: "Red", hex: "#FB7185" },
+  blue: { label: "Blue", hex: "#60A5FA" },
+  teal: { label: "Teal", hex: "#2DD4BF" },
+  yellow: { label: "Yellow", hex: "#FBBF24" },
+  white: { label: "White", hex: "#FFFFFF" },
+  gray: { label: "Gray", hex: "#CBD5E1" },
+};
+
+type CalendarEvent = {
+  title: string;
+  color: CalendarColorKey;
+};
+
+type DayCell = {
+  day: number;
+  events: CalendarEvent[];
+};
+
+function InitiativesCalendar() {
+  // ✅ Change these two numbers each month
+  const year = 2026;
+  const monthIndex = 1; // 0=Jan, 1=Feb, ... 11=Dec
+
+  const monthLabel = useMemo(() => new Date(year, monthIndex, 1).toLocaleString(undefined, { month: "long", year: "numeric" }), [year, monthIndex]);
+
+  /**
+   * ✅ EASIEST EDIT METHOD:
+   * Just edit this object. Keys are day numbers.
+   * Add / remove events, and pick a color key.
+   */
+  const monthEdits: Record<number, CalendarEvent[]> = {
+    1: [{ title: "Winter Skills / Gear Check", color: "purple" }],
+    7: [{ title: "Climbing Night", color: "green" }],
+    12: [{ title: "Planning Meeting", color: "orange" }],
+    24: [{ title: "Club Meeting", color: "red" }],
+  };
+
+  const firstDay = new Date(year, monthIndex, 1);
+  const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+  const startWeekday = firstDay.getDay(); // 0=Sun
+
+  // Build calendar grid cells (6 rows x 7 cols)
+  const cells: (DayCell | null)[] = [];
+  for (let i = 0; i < startWeekday; i++) cells.push(null);
+  for (let d = 1; d <= daysInMonth; d++) {
+    cells.push({ day: d, events: monthEdits[d] ?? [] });
+  }
+  while (cells.length % 7 !== 0) cells.push(null);
+  while (cells.length < 42) cells.push(null);
+
+  const weekdayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return (
+    <div className="w-full max-w-5xl mx-auto px-4 md:px-8 text-left">
+      <div className="mb-6">
+        <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">INITIATIVES</h2>
+        <div className="mt-2 h-px w-44 bg-white/30" />
+      </div>
+
+      <p className="text-white/80 leading-relaxed max-w-3xl">
+        Workshops, trainings, service days, and trip timelines. Calendar is designed to be dead-simple to edit.
+      </p>
+
+      <div className="mt-7 rounded-3xl bg-white/5 ring-1 ring-white/10 p-5 md:p-7">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-4">
+          <div>
+            <div className="text-white/80 text-xs tracking-[0.35em] uppercase">Calendar</div>
+            <div className="mt-1 text-white/95 text-2xl font-semibold">{monthLabel}</div>
+          </div>
+
+          {/* Legend */}
+          <div className="flex flex-wrap gap-2">
+            {(["purple", "orange", "green", "pink", "red"] as CalendarColorKey[]).map((k) => (
+              <div key={k} className="inline-flex items-center gap-2 rounded-full bg-black/25 ring-1 ring-white/10 px-3 py-1">
+                <span className="h-2.5 w-2.5 rounded-full" style={{ background: CALENDAR_COLORS[k].hex }} />
+                <span className="text-white/70 text-xs">{CALENDAR_COLORS[k].label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Weekday header */}
+        <div className="grid grid-cols-7 gap-2 mb-2">
+          {weekdayLabels.map((w) => (
+            <div key={w} className="text-white/60 text-xs tracking-[0.25em] uppercase px-2">
+              {w}
+            </div>
+          ))}
+        </div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-7 gap-2">
+          {cells.map((cell, idx) => (
+            <div
+              key={idx}
+              className={[
+                "min-h-[92px] rounded-2xl ring-1 p-2 md:p-3 transition",
+                cell ? "bg-black/20 ring-white/10 hover:bg-black/30" : "bg-black/10 ring-white/5 opacity-60",
+              ].join(" ")}
+            >
+              {cell ? (
+                <>
+                  <div className="flex items-center justify-between">
+                    <div className="text-white/80 text-sm font-semibold">{cell.day}</div>
+                  </div>
+
+                  <div className="mt-2 space-y-1">
+                    {cell.events.length === 0 ? (
+                      <div className="text-white/35 text-[11px]">—</div>
+                    ) : (
+                      cell.events.map((ev, j) => (
+                        <div
+                          key={j}
+                          className="text-[11px] leading-snug"
+                          style={{
+                            color: CALENDAR_COLORS[ev.color].hex,
+                            textShadow: "0 1px 12px rgba(0,0,0,0.55)",
+                          }}
+                        >
+                          • {ev.title}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </>
+              ) : null}
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-5 rounded-2xl bg-black/20 ring-1 ring-white/10 p-4">
+          <div className="text-white/80 text-xs tracking-[0.25em] uppercase">How to edit</div>
+          <p className="mt-2 text-white/70 text-sm leading-relaxed">
+            In <span className="text-white/85">InitiativesCalendar()</span>, edit{" "}
+            <span className="text-white/85">monthEdits</span>. Example:
+          </p>
+          <pre className="mt-2 overflow-auto rounded-xl bg-black/40 ring-1 ring-white/10 p-3 text-white/75 text-xs">
+{`const monthEdits = {
+  24: [{ title: "Club Meeting", color: "red" }],
+  25: [{ title: "Service Day", color: "green" }],
+};`}
+          </pre>
+          <p className="mt-2 text-white/55 text-xs">
+            Colors available: {Object.keys(CALENDAR_COLORS).join(", ")}
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -185,13 +490,15 @@ export default function ASUMountaineeringSite() {
           <div className="w-full max-w-3xl mx-auto px-4 md:px-8 text-left">
             <h2 className="text-2xl md:text-3xl font-semibold text-white/95 mb-4">Welcome to the MCA&apos;s website!</h2>
             <p className="text-base md:text-lg leading-relaxed text-white/85 mb-8">
-              First and foremost MCA is a community. The club is centered around us pushing ourselves mentally and physically in the mountains, but we also aim to support our members in all of their pursuits.
+              First and foremost MCA is a community. The club is centered around us pushing ourselves mentally and physically
+              in the mountains, but we also aim to support our members in all of their pursuits.
             </p>
             <div className="space-y-7">
               <div className="space-y-2">
                 <div className="text-lg md:text-xl font-semibold text-white/95">What kind of gear do I need?</div>
                 <p className="text-base leading-relaxed text-white/85">
-                  You don’t need to have any special equipment to come on MCA trips (all necessary equipment is provided) though at some point you may choose to purchase your own boots or other equipment.
+                  You don’t need to have any special equipment to come on MCA trips (all necessary equipment is provided)
+                  though at some point you may choose to purchase your own boots or other equipment.
                 </p>
               </div>
               <div className="space-y-2">
@@ -199,27 +506,36 @@ export default function ASUMountaineeringSite() {
                   What if I don’t have any backpacking or mountaineering experience?
                 </div>
                 <p className="text-base leading-relaxed text-white/85">
-                  No worries. The point of this club is to decrease the barriers of entry to outdoor activities, and help more people go on sick adventures!
+                  No worries. The point of this club is to decrease the barriers of entry to outdoor activities, and help more
+                  people go on sick adventures!
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="text-lg md:text-xl font-semibold text-white/95">
-                  What is the difference between the Arizona State Outdoors Club and the Mountaineering Club at Arizona State University?
+                  What is the difference between the Arizona State Outdoors Club and the Mountaineering Club at Arizona State
+                  University?
                 </div>
                 <p className="text-base leading-relaxed text-white/85">
-                  You should absolutely do both! Our mountaineering club is focused more on larger objectives that are out of state while the outdoors club engage in a larger variety of outings while mostly staying in state. That being said, our mountaineering club still goes on lots of smaller trips for fun and team bonding.
+                  You should absolutely do both! Our mountaineering club is focused more on larger objectives that are out of
+                  state while the outdoors club engage in a larger variety of outings while mostly staying in state. That
+                  being said, our mountaineering club still goes on lots of smaller trips for fun and team bonding.
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="text-lg md:text-xl font-semibold text-white/95">What does the time commitment look like?</div>
                 <p className="text-base leading-relaxed text-white/85">
-                  The time commitment is totally up to you. We welcome all different levels of involvement with the club. We have lots of fun events during the week like climbing local rock walls and our club meetings. The only requirement would be for more advanced trips we will need to make sure every participant is ready.
+                  The time commitment is totally up to you. We welcome all different levels of involvement with the club. We
+                  have lots of fun events during the week like climbing local rock walls and our club meetings. The only
+                  requirement would be for more advanced trips we will need to make sure every participant is ready.
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="text-lg md:text-xl font-semibold text-white/95">How much do trips cost?</div>
                 <p className="text-base leading-relaxed text-white/85">
-                  All of our daily trips are free. We will split the cost of break trips, meaning splitting gas, flight and food costs. Plus the cost of rentals but that shouldn’t cost more than 50 dollars per person on the most advanced trips where you need to have specialized boots, crampons and ice axes. IF your trip doesn’t need that equipment we should have all the equipment necessary for each participant.
+                  All of our daily trips are free. We will split the cost of break trips, meaning splitting gas, flight and
+                  food costs. Plus the cost of rentals but that shouldn’t cost more than 50 dollars per person on the most
+                  advanced trips where you need to have specialized boots, crampons and ice axes. IF your trip doesn’t need
+                  that equipment we should have all the equipment necessary for each participant.
                 </p>
               </div>
             </div>
@@ -288,13 +604,7 @@ export default function ASUMountaineeringSite() {
       {/* INITIATIVES */}
       {route === "/initiatives" && (
         <Overlay onClose={() => nav("/") as Route}>
-          <div className="mb-6 text-center">
-            <h2 className="uppercase tracking-[0.35em] text-white/90 text-xl">INITIATIVES</h2>
-            <div className="mx-auto mt-2 h-px w-40 bg-white/30" />
-          </div>
-          <p className="text-white/80">
-            Placeholder for club initiatives (e.g., adaptive treks, sustainability projects, rescue-readiness workshops, mentorship). We’ll fill this out together.
-          </p>
+          <InitiativesCalendar />
         </Overlay>
       )}
 
@@ -308,7 +618,7 @@ export default function ASUMountaineeringSite() {
       {/* JOURNAL */}
       {route === "/journal" && (
         <Overlay onClose={() => nav("/") as Route}>
-          <div className="text-white/80">Journal placeholder (upload PDFs later).</div>
+          <JournalGallery />
         </Overlay>
       )}
 
@@ -379,7 +689,12 @@ function ResourcesPanel() {
   type FolderKey = "trip" | "safety" | "club" | "scholarships" | "community" | "perks";
   const [activeFolder, setActiveFolder] = useState<FolderKey>("trip");
 
-  // Put logo files in /public/partners/...
+  /**
+   * ✅ Sponsor logos
+   * You said KAYA logo is in /public/thanksani/
+   * Put the file there and name it something simple like:
+   *  - /public/thanksani/kayaweb.svg
+   */
   const PARTNERS = [
     {
       name: "Arizona Hiking Shack",
@@ -389,11 +704,18 @@ function ResourcesPanel() {
       clickable: true,
     },
     {
+      name: "KAYA",
+      logoSrc: "/thanksani/kayaweb.svg",
+      href: "https://kayaclimb.com/",
+      desc: "Providing MCA with KAYA Pro — helping members find outdoor boulders and discover new areas to climb.",
+      clickable: true,
+    },
+    {
       name: "Red Bull",
       logoSrc: "955d8046-ab43-4da6-b44a-73d269014051.jpg",
-      href: "",
+      href: "https://www.redbull.com/",
       desc: "Support that helps fuel meetings and club energy during busy weeks.",
-      clickable: false,
+      clickable: true,
     },
   ] as const;
 
@@ -671,7 +993,6 @@ function ResourcesPanel() {
               <a
                 href="#/contact"
                 onClick={(e) => {
-                  // keep it as a normal hash nav so it works in your router
                   e.preventDefault();
                   window.location.hash = "#/contact";
                 }}
