@@ -26,8 +26,8 @@ const INSTAGRAM_URL = "https://www.instagram.com/mountaineeringclub_asu/";
  * Then replace the url fields with the real IG post links when ready.
  */
 const INSTAGRAM_POSTS = [
-  { img: "/insta1.jpeg", url: "https://www.instagram.com/p/example1/" },
-  { img: "/insta5.jpeg", url: "https://www.instagram.com/p/DU7KeqxCVCa/" },
+  { img: "/insta6.jpeg", url: "https://www.instagram.com/p/example1/" },
+  { img: "/insta5.png", url: "https://www.instagram.com/p/DU7KeqxCVCa/" },
   { img: "/insta4.jpeg", url: "https://www.instagram.com/p/DUg2_T0Ekex/?img_index=1" },
   { img: "/insta3.jpeg", url: "https://www.instagram.com/p/DUe6DagiUv8/" },
   { img: "/insta2.jpeg", url: "https://www.instagram.com/p/DUWswW3kkdj/?img_index=1" },
