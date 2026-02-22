@@ -90,18 +90,20 @@ function InstagramGrid() {
         </a>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-        {INSTAGRAM_POSTS.map((p, i) => (
-          <a key={i} href={p.url} target="_blank" rel="noreferrer" className="group">
-            <img
-              src={p.img}
-              alt={`Instagram post ${i + 1}`}
-              className="rounded-lg transition w-full aspect-square object-cover ring-1 ring-white/10 group-hover:opacity-85"
-              loading="lazy"
-            />
-          </a>
-        ))}
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+  {INSTAGRAM_POSTS.map((p, i) => (
+    <a key={i} href={p.url} target="_blank" rel="noreferrer" className="group">
+      <div className="relative w-full aspect-[4/5] overflow-hidden rounded-lg ring-1 ring-white/10">
+        <img
+          src={p.img}
+          alt={`Instagram post ${i + 1}`}
+          className="absolute inset-0 h-full w-full object-cover object-top transition duration-500 group-hover:opacity-85"
+          loading="lazy"
+        />
       </div>
+    </a>
+  ))}
+</div>
 
       <p className="mt-3 text-white/55 text-xs leading-relaxed">
         Tip: keep these as simple square images in <span className="text-white/75">/public/instagram/</span>. If you ever want
