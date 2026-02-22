@@ -26,12 +26,12 @@ const INSTAGRAM_URL = "https://www.instagram.com/mountaineeringclub_asu/";
  * Then replace the url fields with the real IG post links when ready.
  */
 const INSTAGRAM_POSTS = [
-  { img: "/instagram/post1.jpg", url: "https://www.instagram.com/p/example1/" },
-  { img: "/instagram/post2.jpg", url: "https://www.instagram.com/p/example2/" },
-  { img: "/instagram/post3.jpg", url: "https://www.instagram.com/p/example3/" },
-  { img: "/instagram/post4.jpg", url: "https://www.instagram.com/p/example4/" },
-  { img: "/instagram/post5.jpg", url: "https://www.instagram.com/p/example5/" },
-  { img: "/instagram/post6.jpg", url: "https://www.instagram.com/p/example6/" },
+  { img: "/insta1.jpeg", url: "https://www.instagram.com/p/example1/" },
+  { img: "/insta5.jpeg", url: "https://www.instagram.com/p/DU7KeqxCVCa/" },
+  { img: "/insta4.jpeg", url: "https://www.instagram.com/p/DUg2_T0Ekex/?img_index=1" },
+  { img: "/insta3.jpeg", url: "https://www.instagram.com/p/DUe6DagiUv8/" },
+  { img: "/insta2.jpeg", url: "https://www.instagram.com/p/DUWswW3kkdj/?img_index=1" },
+  { img: "/insta1.jpeg", url: "https://www.instagram.com/p/DUTqHWjkgJf/?img_index=1" },
 ];
 
 function BackgroundWrapper({ children }: { children: React.ReactNode }) {
