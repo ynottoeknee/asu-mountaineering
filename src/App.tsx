@@ -170,66 +170,143 @@ function JournalGallery() {
   );
 }
 /* -----------------------------
-   INITIATIVES: Editable calendar
+   INITIATIVES: Calendar + Jump Pills + Feature Blocks + Overlay Expansion + Petitions
 ----------------------------- */
-type CalendarColorKey = "purple" | "orange" | "green" | "pink" | "red" | "white" | "gray" | "blue" | "yellow" | "teal";
 
-const CALENDAR_COLORS: Record<CalendarColorKey, { label: string; hex: string }> = {
-  purple: { label: "Purple", hex: "#A78BFA" },
-  orange: { label: "Orange", hex: "#FB923C" },
-  green: { label: "Green", hex: "#34D399" },
-  pink: { label: "Pink", hex: "#F472B6" },
-  red: { label: "Red", hex: "#FB7185" },
-  blue: { label: "Blue", hex: "#60A5FA" },
-  teal: { label: "Teal", hex: "#2DD4BF" },
-  yellow: { label: "Yellow", hex: "#FBBF24" },
-  white: { label: "White", hex: "#FFFFFF" },
-  gray: { label: "Gray", hex: "#CBD5E1" },
-};
+const PETITIONS_DOC =
+  "https://docs.google.com/document/d/1zX8pHm9XSinjg2dh5BKilBLoHc8FU7_6zxdZYyqGEH8/edit?usp=sharing";
 
-type CalendarEvent = {
+// TODO: paste your 3 student interest Google Form links here:
+const STUDENT_INTEREST_FORMS = {
+  disability: "https://forms.gle/PASTE_DISABILITY_FORM_LINK",
+  dogs: "https://forms.gle/PASTE_DOGS_FORM_LINK",
+  trails: "https://forms.gle/PASTE_TRAILS_FORM_LINK",
+} as const;
+
+type InitiativeKey = "disability" | "dogs" | "trails";
+
+type Initiative = {
+  key: InitiativeKey;
   title: string;
-  color: CalendarColorKey;
+  subtitle: string;
+  accent: string; // glow + pill tint
+  pillText: string; // for the pill label if you want shorter names
+  forWho: string[];
+  studentFormHref: string;
+  details: {
+    mission: string;
+    howItWorks: string[];
+    howToJoin: string[];
+    partnerInfo: string[];
+    futureMediaNote?: string;
+  };
 };
 
-type DayCell = {
-  day: number;
-  events: CalendarEvent[];
-};
+function InitiativesPanel({ navToContact }: { navToContact: () => void }) {
+  // Calendar state (month swipe + year toggle)
+  const today = new Date();
+  const [month, setMonth] = useState<number>(today.getMonth()); // 0-11
+  const [year, setYear] = useState<number>(today.getFullYear());
 
-function InitiativesCalendar() {
-  // ✅ Change these two numbers each month
-  const year = 2026;
-  const monthIndex = 1; // 0=Jan, 1=Feb, ... 11=Dec
+  // Overlay state (long-form details)
+  const [active, setActive] = useState<Initiative | null>(null);
 
-  const monthLabel = useMemo(() => new Date(year, monthIndex, 1).toLocaleString(undefined, { month: "long", year: "numeric" }), [year, monthIndex]);
-
-  /**
-   * ✅ EASIEST EDIT METHOD:
-   * Just edit this object. Keys are day numbers.
-   * Add / remove events, and pick a color key.
-   */
-  const monthEdits: Record<number, CalendarEvent[]> = {
-    1: [{ title: "Winter Skills / Gear Check", color: "purple" }],
-    7: [{ title: "Climbing Night", color: "green" }],
-    12: [{ title: "Planning Meeting", color: "orange" }],
-    24: [{ title: "Club Meeting", color: "red" }],
+  // Jump refs
+  const refs: Record<InitiativeKey, React.MutableRefObject<HTMLDivElement | null>> = {
+    disability: useRef<HTMLDivElement | null>(null),
+    dogs: useRef<HTMLDivElement | null>(null),
+    trails: useRef<HTMLDivElement | null>(null),
   };
 
-  const firstDay = new Date(year, monthIndex, 1);
-  const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
-  const startWeekday = firstDay.getDay(); // 0=Sun
+  const jumpTo = (key: InitiativeKey) => {
+    const el = refs[key].current;
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
-  // Build calendar grid cells (6 rows x 7 cols)
-  const cells: (DayCell | null)[] = [];
-  for (let i = 0; i < startWeekday; i++) cells.push(null);
-  for (let d = 1; d <= daysInMonth; d++) {
-    cells.push({ day: d, events: monthEdits[d] ?? [] });
-  }
-  while (cells.length % 7 !== 0) cells.push(null);
-  while (cells.length < 42) cells.push(null);
-
-  const weekdayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const initiatives: Initiative[] = [
+    {
+      key: "disability",
+      title: "Disability Nights",
+      pillText: "Disability Nights",
+      subtitle: "Adaptive outdoor experiences built around access, safety, and community.",
+      accent: "rgba(160,90,255,0.42)", // purple
+      forWho: ["Students", "Parents & families", "Community partners"],
+      studentFormHref: STUDENT_INTEREST_FORMS.disability,
+      details: {
+        mission:
+          "Create welcoming, accessible outdoor experiences and skill sessions for people of all abilities—while training MCA members to support adaptive participation with care and competence.",
+        howItWorks: [
+          "Structured events with clear roles (lead, support, logistics, accessibility liaison).",
+          "Pre-brief + safety framework (terrain selection, comms plan, contingencies).",
+          "Post-event notes to improve future events and support continuity (optional).",
+        ],
+        howToJoin: [
+          "Students: submit the interest form and we’ll follow up with onboarding + training expectations.",
+          "You can start with low-barrier roles (logistics, support, comms) and level up over time.",
+        ],
+        partnerInfo: [
+          "Parents/guardians: reach out with scheduling needs and any accessibility info you’d like us to know.",
+          "Organizations: we can co-host, coordinate volunteers, and build recurring programming.",
+        ],
+        futureMediaNote: "Future: photos, partner logos, and impact stats will live here.",
+      },
+    },
+    {
+      key: "dogs",
+      title: "Dog Shelter Partnership",
+      pillText: "Dog Partnership",
+      subtitle: "Trail days that enrich rescue dogs and increase adoption visibility.",
+      accent: "rgba(255,140,0,0.38)", // orange
+      forWho: ["Students", "Dog shelters", "Potential adopters & volunteers"],
+      studentFormHref: STUDENT_INTEREST_FORMS.dogs,
+      details: {
+        mission:
+          "Support shelters by giving dogs enrichment and visibility—while giving students a meaningful, community-building way to serve.",
+        howItWorks: [
+          "We coordinate a recurring outing schedule with shelter staff guidance and agreed safety rules.",
+          "We start with a smaller intro walk to match dogs with volunteers.",
+          "Optional: we keep simple behavior/preference notes to help shelters with matching.",
+        ],
+        howToJoin: [
+          "Students: submit the interest form with your comfort level and availability.",
+          "We’ll match you with the right dog and provide handling guidance (per shelter rules).",
+        ],
+        partnerInfo: [
+          "Shelters: tell us what help matters most (walks, adoption events, transport support, visibility).",
+          "We’ll follow your training requirements and keep animal welfare central.",
+        ],
+        futureMediaNote: "Future: partner highlights, photos, and adoption outcomes can be featured here.",
+      },
+    },
+    {
+      key: "trails",
+      title: "Trail Maintenance",
+      pillText: "Trail Maintenance",
+      subtitle: "Hands-on stewardship: restoration, erosion control, and public lands support.",
+      accent: "rgba(80,200,120,0.34)", // green
+      forWho: ["Students", "Land managers (NPS/FS)", "Outdoor community"],
+      studentFormHref: STUDENT_INTEREST_FORMS.trails,
+      details: {
+        mission:
+          "Support public lands through responsible, trained volunteer work—especially where trail access and restoration matter to our community.",
+        howItWorks: [
+          "We coordinate with land managers and follow required training + supervision rules.",
+          "Workdays can include erosion control, corridor clearing, and trail improvements.",
+          "We keep volunteer rosters, safety expectations, and a clear comms plan.",
+        ],
+        howToJoin: [
+          "Students: submit the interest form and note any trail work experience (if any).",
+          "We’ll share requirements (PPE, training, supervision expectations) before each event.",
+        ],
+        partnerInfo: [
+          "Agencies/organizations: reach out with needs, training requirements, and timelines.",
+          "We’re happy to start small and scale responsibly.",
+        ],
+        futureMediaNote: "Future: project logs, before/after photos, and mileage impact can be displayed here.",
+      },
+    },
+  ];
 
   return (
     <div className="w-full max-w-5xl mx-auto px-4 md:px-8 text-left">
@@ -238,91 +315,272 @@ function InitiativesCalendar() {
         <div className="mt-2 h-px w-44 bg-white/30" />
       </div>
 
-      <p className="text-white/80 leading-relaxed max-w-3xl">
-        Workshops, trainings, service days, and trip timelines. Calendar is designed to be dead-simple to edit.
-      </p>
-
-      <div className="mt-7 rounded-3xl bg-white/5 ring-1 ring-white/10 p-5 md:p-7">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-4">
+      {/* Calendar */}
+      <div className="rounded-3xl bg-black/25 ring-1 ring-white/10 p-5 md:p-7">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <div className="text-white/80 text-xs tracking-[0.35em] uppercase">Calendar</div>
-            <div className="mt-1 text-white/95 text-2xl font-semibold">{monthLabel}</div>
-          </div>
-
-          {/* Legend */}
-          <div className="flex flex-wrap gap-2">
-            {(["purple", "orange", "green", "pink", "red"] as CalendarColorKey[]).map((k) => (
-              <div key={k} className="inline-flex items-center gap-2 rounded-full bg-black/25 ring-1 ring-white/10 px-3 py-1">
-                <span className="h-2.5 w-2.5 rounded-full" style={{ background: CALENDAR_COLORS[k].hex }} />
-                <span className="text-white/70 text-xs">{CALENDAR_COLORS[k].label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Weekday header */}
-        <div className="grid grid-cols-7 gap-2 mb-2">
-          {weekdayLabels.map((w) => (
-            <div key={w} className="text-white/60 text-xs tracking-[0.25em] uppercase px-2">
-              {w}
+            <div className="text-white/90 text-xs tracking-[0.35em] uppercase">Calendar</div>
+            <div className="mt-1 text-white/95 text-lg font-semibold">
+              {new Date(year, month, 1).toLocaleString(undefined, { month: "long" })} {year}
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-7 gap-2">
-          {cells.map((cell, idx) => (
-            <div
-              key={idx}
-              className={[
-                "min-h-[92px] rounded-2xl ring-1 p-2 md:p-3 transition",
-                cell ? "bg-black/20 ring-white/10 hover:bg-black/30" : "bg-black/10 ring-white/5 opacity-60",
-              ].join(" ")}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                const d = new Date(year, month - 1, 1);
+                setMonth(d.getMonth());
+                setYear(d.getFullYear());
+              }}
+              className="px-3 py-2 rounded-xl bg-white/10 ring-1 ring-white/10 hover:bg-white/15 transition text-white/85"
+              aria-label="Previous month"
             >
-              {cell ? (
-                <>
-                  <div className="flex items-center justify-between">
-                    <div className="text-white/80 text-sm font-semibold">{cell.day}</div>
-                  </div>
+              ‹
+            </button>
 
-                  <div className="mt-2 space-y-1">
-                    {cell.events.length === 0 ? (
-                      <div className="text-white/35 text-[11px]">—</div>
-                    ) : (
-                      cell.events.map((ev, j) => (
-                        <div
-                          key={j}
-                          className="text-[11px] leading-snug"
-                          style={{
-                            color: CALENDAR_COLORS[ev.color].hex,
-                            textShadow: "0 1px 12px rgba(0,0,0,0.55)",
-                          }}
-                        >
-                          • {ev.title}
-                        </div>
-                      ))
-                    )}
-                  </div>
-                </>
-              ) : null}
-            </div>
-          ))}
+            <select
+              value={year}
+              onChange={(e) => setYear(parseInt(e.target.value, 10))}
+              className="px-3 py-2 rounded-xl bg-white/10 ring-1 ring-white/10 text-white/85 outline-none"
+              aria-label="Select year"
+            >
+              {Array.from({ length: 9 }).map((_, i) => {
+                const y = today.getFullYear() - 4 + i;
+                return (
+                  <option key={y} value={y} className="text-black">
+                    {y}
+                  </option>
+                );
+              })}
+            </select>
+
+            <button
+              onClick={() => {
+                const d = new Date(year, month + 1, 1);
+                setMonth(d.getMonth());
+                setYear(d.getFullYear());
+              }}
+              className="px-3 py-2 rounded-xl bg-white/10 ring-1 ring-white/10 hover:bg-white/15 transition text-white/85"
+              aria-label="Next month"
+            >
+              ›
+            </button>
+          </div>
         </div>
 
-        <div className="mt-5 rounded-2xl bg-black/20 ring-1 ring-white/10 p-4">
-          <div className="text-white/80 text-xs tracking-[0.25em] uppercase">How to edit</div>
+        <MiniCalendarGrid month={month} year={year} />
+
+        {/* Jump pills (right under calendar) */}
+        <div className="mt-5 flex flex-wrap gap-2">
+          {initiatives.map((i) => (
+            <button
+              key={i.key}
+              onClick={() => jumpTo(i.key)}
+              className="text-xs tracking-[0.22em] uppercase px-3 py-2 rounded-full ring-1 bg-black/20 hover:bg-white/10 transition"
+              style={{
+                color: "rgba(255,255,255,0.85)",
+                borderColor: "rgba(255,255,255,0.14)",
+                boxShadow: `0 0 0 1px rgba(255,255,255,0.06), 0 14px 50px -40px ${i.accent}`,
+              }}
+            >
+              <span
+                className="inline-block"
+                style={{
+                  color: i.accent.replace("0.34", "0.95").replace("0.38", "0.95").replace("0.42", "0.95"),
+                }}
+              >
+                ●
+              </span>{" "}
+              <span className="ml-2" style={{ color: "rgba(255,255,255,0.86)" }}>
+                {i.pillText}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Initiative feature blocks */}
+      <div className="mt-8 space-y-6">
+        {initiatives.map((i) => (
+          <div key={i.key} ref={refs[i.key]} className="scroll-mt-24">
+            <div
+              className="rounded-3xl bg-white/5 ring-1 ring-white/10 p-6 md:p-8 relative overflow-hidden"
+              style={{
+                boxShadow: `0 0 0 1px rgba(255,255,255,0.06), 0 28px 90px -60px ${i.accent}`,
+              }}
+            >
+              <div className="absolute inset-0 opacity-35 pointer-events-none" style={{ background: `radial-gradient(circle at 18% 15%, ${i.accent}, transparent 58%)` }} />
+
+              <div className="relative">
+                <div className="text-white/95 text-2xl md:text-3xl font-semibold">{i.title}</div>
+                <div className="mt-2 text-white/75 leading-relaxed max-w-3xl">{i.subtitle}</div>
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {i.forWho.map((tag) => (
+                    <span
+                      key={tag}
+                      className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs text-white/80 ring-1 ring-white/10"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                  {/* Student interest */}
+                  <a
+                    href={i.studentFormHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex justify-center px-5 py-2.5 rounded-xl bg-white text-black/90 text-xs font-medium tracking-[0.25em] hover:bg-white/90 transition"
+                  >
+                    STUDENT INTEREST
+                  </a>
+
+                  {/* Partner / Parent / Org outreach (more formal) */}
+                  <button
+                    onClick={() => navToContact()}
+                    className="px-5 py-2.5 rounded-xl border border-white/25 text-white/90 text-xs font-medium tracking-[0.25em] hover:bg-white/10 transition"
+                  >
+                    PARENTS / PARTNERS
+                  </button>
+
+                  {/* Long-form details */}
+                  <button
+                    onClick={() => setActive(i)}
+                    className="px-5 py-2.5 rounded-xl bg-white/10 ring-1 ring-white/10 text-white/85 text-xs font-medium tracking-[0.25em] hover:bg-white/15 transition"
+                  >
+                    LEARN MORE
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Petitions (small) */}
+      <div className="mt-10 rounded-3xl bg-black/20 ring-1 ring-white/10 p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <div className="text-white/90 text-xs tracking-[0.35em] uppercase">Petitions</div>
+            <div className="mt-1 text-white/95 text-lg font-semibold">Petitions List</div>
+            <div className="mt-2 text-white/70 text-sm leading-relaxed max-w-2xl">
+              A running doc of petitions and public comment opportunities members can sign (optional).
+            </div>
+          </div>
+
+          <a
+            href={PETITIONS_DOC}
+            target="_blank"
+            rel="noreferrer"
+            className="shrink-0 px-5 py-2.5 rounded-xl bg-white text-black/90 text-xs font-medium tracking-[0.25em] hover:bg-white/90 transition"
+          >
+            OPEN DOC
+          </a>
+        </div>
+      </div>
+
+      {/* Expansion overlay */}
+      {active ? <InitiativeOverlay initiative={active} onClose={() => setActive(null)} /> : null}
+    </div>
+  );
+}
+
+function MiniCalendarGrid({ month, year }: { month: number; year: number }) {
+  const first = new Date(year, month, 1);
+  const startDay = first.getDay(); // 0 Sun
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const cells: Array<{ day?: number }> = [];
+  for (let i = 0; i < startDay; i++) cells.push({});
+  for (let d = 1; d <= daysInMonth; d++) cells.push({ day: d });
+  while (cells.length % 7 !== 0) cells.push({});
+
+  const dow = ["S", "M", "T", "W", "T", "F", "S"];
+
+  return (
+    <div className="mt-6">
+      <div className="grid grid-cols-7 gap-2 text-white/50 text-xs tracking-[0.3em] uppercase">
+        {dow.map((d) => (
+          <div key={d} className="text-center">
+            {d}
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-2 grid grid-cols-7 gap-2">
+        {cells.map((c, i) => (
+          <div
+            key={i}
+            className={[
+              "h-11 rounded-xl ring-1 ring-white/10 bg-white/5 grid place-items-center",
+              c.day ? "text-white/85 hover:bg-white/10 transition" : "opacity-30",
+            ].join(" ")}
+          >
+            {c.day ?? ""}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function InitiativeOverlay({ initiative, onClose }: { initiative: Initiative; onClose: () => void }) {
+  return (
+    <div className="w-full flex justify-center py-8">
+      <div className="relative mx-2 w-full max-w-4xl rounded-3xl bg-black/60 backdrop-blur-md shadow-2xl ring-1 ring-white/10 p-6 md:p-10">
+        <button
+          onClick={onClose}
+          className="absolute -top-5 -right-5 h-10 w-10 rounded-full bg-black/30 ring-1 ring-white/25 text-white/80 hover:text-white hover:bg-black/40 transition grid place-items-center backdrop-blur-sm"
+          aria-label="Close"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </button>
+
+        <div className="text-white/95 text-2xl md:text-3xl font-semibold">{initiative.title}</div>
+        <div className="mt-2 text-white/75 leading-relaxed">{initiative.subtitle}</div>
+
+        <div className="mt-6 grid md:grid-cols-2 gap-6">
+          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-5">
+            <div className="text-white/90 text-xs tracking-[0.35em] uppercase">Mission</div>
+            <p className="mt-2 text-white/80 leading-relaxed">{initiative.details.mission}</p>
+          </div>
+
+          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-5">
+            <div className="text-white/90 text-xs tracking-[0.35em] uppercase">How it works</div>
+            <ul className="mt-3 space-y-2 text-white/80 text-sm leading-relaxed list-disc pl-5">
+              {initiative.details.howItWorks.map((x, i) => (
+                <li key={i}>{x}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-5">
+            <div className="text-white/90 text-xs tracking-[0.35em] uppercase">How to join</div>
+            <ul className="mt-3 space-y-2 text-white/80 text-sm leading-relaxed list-disc pl-5">
+              {initiative.details.howToJoin.map((x, i) => (
+                <li key={i}>{x}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-5">
+            <div className="text-white/90 text-xs tracking-[0.35em] uppercase">Partners / Parents</div>
+            <ul className="mt-3 space-y-2 text-white/80 text-sm leading-relaxed list-disc pl-5">
+              {initiative.details.partnerInfo.map((x, i) => (
+                <li key={i}>{x}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-6 rounded-2xl bg-black/20 ring-1 ring-white/10 p-5">
+          <div className="text-white/85 font-semibold">Media & updates</div>
           <p className="mt-2 text-white/70 text-sm leading-relaxed">
-            In <span className="text-white/85">InitiativesCalendar()</span>, edit{" "}
-            <span className="text-white/85">monthEdits</span>. Example:
-          </p>
-          <pre className="mt-2 overflow-auto rounded-xl bg-black/40 ring-1 ring-white/10 p-3 text-white/75 text-xs">
-{`const monthEdits = {
-  24: [{ title: "Club Meeting", color: "red" }],
-  25: [{ title: "Service Day", color: "green" }],
-};`}
-          </pre>
-          <p className="mt-2 text-white/55 text-xs">
-            Colors available: {Object.keys(CALENDAR_COLORS).join(", ")}
+            {initiative.details.futureMediaNote ?? "Future: photos, partner logos, and impact stats will appear here."}
           </p>
         </div>
       </div>
