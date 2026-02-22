@@ -104,6 +104,7 @@ function InstagramGrid() {
     </a>
   ))}
 </div>
+
     </div>
   );
 }
@@ -365,7 +366,7 @@ function InitiativesPanel({ navToContact }: { navToContact: () => void }) {
           </div>
         </div>
 
-        <MiniCalendarGrid month={month} year={year} />
+        <BigCalendarGrid month={month} year={year} />
 
         {/* Jump pills (right under calendar) */}
         <div className="mt-5 flex flex-wrap gap-2">
@@ -484,21 +485,54 @@ function InitiativesPanel({ navToContact }: { navToContact: () => void }) {
   );
 }
 
-function MiniCalendarGrid({ month, year }: { month: number; year: number }) {
+type CalColor = "purple" | "orange" | "green" | "pink" | "red" | "blue" | "white";
+
+const CAL_COLORS: Record<CalColor, string> = {
+  purple: "text-purple-300",
+  orange: "text-orange-300",
+  green: "text-emerald-300",
+  pink: "text-pink-300",
+  red: "text-red-300",
+  blue: "text-sky-300",
+  white: "text-white/85",
+};
+
+/**
+ * ✅ EDIT THIS ONLY:
+ * Add/edit events by date key "YYYY-MM-DD".
+ * You can put multiple events per day.
+ */
+const CALENDAR_EVENTS: Record<string, { title: string; color: CalColor }[]> = {
+  // Example:
+  // "2026-02-24": [{ title: "Club Meeting • 7:00 PM", color: "red" }],
+  // "2026-02-27": [{ title: "Sunrise Hike", color: "orange" }],
+};
+
+function BigCalendarGrid({ month, year }: { month: number; year: number }) {
   const first = new Date(year, month, 1);
-  const startDay = first.getDay(); // 0 Sun
+  const startDay = first.getDay(); // 0=Sun
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-  const cells: Array<{ day?: number }> = [];
+  const cells: Array<{ day?: number; iso?: string }> = [];
+
+  // leading blanks
   for (let i = 0; i < startDay; i++) cells.push({});
-  for (let d = 1; d <= daysInMonth; d++) cells.push({ day: d });
+
+  // actual days
+  for (let d = 1; d <= daysInMonth; d++) {
+    const iso = toISODate(year, month, d);
+    cells.push({ day: d, iso });
+  }
+
+  // trailing blanks
   while (cells.length % 7 !== 0) cells.push({});
 
-  const dow = ["S", "M", "T", "W", "T", "F", "S"];
+  const dow = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   return (
     <div className="mt-6">
-      <div className="grid grid-cols-7 gap-2 text-white/50 text-xs tracking-[0.3em] uppercase">
+      {/* Day of week header */}
+      <div className="grid grid-cols-7 gap-2 text-white/55 text-xs tracking-[0.2em] uppercase">
         {dow.map((d) => (
           <div key={d} className="text-center">
             {d}
@@ -506,21 +540,70 @@ function MiniCalendarGrid({ month, year }: { month: number; year: number }) {
         ))}
       </div>
 
+      {/* Big cells */}
       <div className="mt-2 grid grid-cols-7 gap-2">
-        {cells.map((c, i) => (
-          <div
-            key={i}
-            className={[
-              "h-11 rounded-xl ring-1 ring-white/10 bg-white/5 grid place-items-center",
-              c.day ? "text-white/85 hover:bg-white/10 transition" : "opacity-30",
-            ].join(" ")}
-          >
-            {c.day ?? ""}
-          </div>
-        ))}
+        {cells.map((c, i) => {
+          const isBlank = !c.day || !c.iso;
+          const items = c.iso ? CALENDAR_EVENTS[c.iso] ?? [] : [];
+
+          return (
+            <div
+              key={i}
+              className={[
+                "rounded-2xl ring-1 ring-white/10 bg-white/5",
+                isBlank ? "opacity-30" : "hover:bg-white/10 transition",
+              ].join(" ")}
+              style={{
+                minHeight: "110px", // 👈 bigger boxes so text fits
+              }}
+            >
+              {!isBlank ? (
+                <div className="h-full p-3 flex flex-col">
+                  {/* Day number */}
+                  <div className="flex items-start justify-between">
+                    <div className="text-white/85 text-sm font-semibold">{c.day}</div>
+                  </div>
+
+                  {/* Events */}
+                  <div className="mt-2 space-y-1 overflow-hidden">
+                    {items.length === 0 ? (
+                      <div className="text-white/25 text-[11px]"> </div>
+                    ) : (
+                      items.slice(0, 4).map((e, idx) => (
+                        <div
+                          key={idx}
+                          className={[
+                            "text-[12px] leading-snug font-medium",
+                            CAL_COLORS[e.color] ?? "text-white/85",
+                          ].join(" ")}
+                          title={e.title}
+                        >
+                          {e.title}
+                        </div>
+                      ))
+                    )}
+
+                    {/* if too many events */}
+                    {items.length > 4 ? (
+                      <div className="text-white/40 text-[11px]">+{items.length - 4} more</div>
+                    ) : null}
+                  </div>
+                </div>
+              ) : (
+                <div className="h-full" />
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
+}
+
+function toISODate(year: number, monthIndex0: number, day: number) {
+  const m = String(monthIndex0 + 1).padStart(2, "0");
+  const d = String(day).padStart(2, "0");
+  return `${year}-${m}-${d}`;
 }
 
 function InitiativeOverlay({ initiative, onClose }: { initiative: Initiative; onClose: () => void }) {
