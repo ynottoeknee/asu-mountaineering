@@ -503,9 +503,34 @@ const CAL_COLORS: Record<CalColor, string> = {
  * You can put multiple events per day.
  */
 const CALENDAR_EVENTS: Record<string, { title: string; color: CalColor }[]> = {
-  // Example:
-  // "2026-02-24": [{ title: "Club Meeting • 7:00 PM", color: "red" }],
-  // "2026-02-27": [{ title: "Sunrise Hike", color: "orange" }],
+  "2026-02-24": [{ title: "Club Meeting • 7:00 PM", color: "white" }],
+  "2026-02-25": [{ title: "Paddleboarding • 4:00 AM", color: "red" }],
+  "2026-02-26": [{ title: "Winter Skills Session • 7:00 PM", color: "pink" }],
+  "2026-02-28": [{ title: "Humphreys Trip", color: "blue" }],
+
+  "2026-03-01": [
+    { title: "Humphreys Trip", color: "blue" },
+    { title: "Backup Dog Walking • 6:00 AM", color: "orange" },
+  ],
+
+  "2026-03-03": [{ title: "Outdoor Bouldering • 3:00 PM", color: "red" }],
+  "2026-03-05": [
+    { title: "Between Peaks • 7:00 PM", color: "red" },
+    { title: "Trip Recap • 6:00 PM", color: "white" },
+  ],
+  "2026-03-06": [{ title: "Backup Humphreys Trip", color: "blue" }],
+  "2026-03-09": [{ title: "Committee Meetings • 7:00 PM", color: "white" }],
+  "2026-03-12": [{ title: "Between Peaks • 7:00 PM", color: "red" }],
+  "2026-03-17": [{ title: "Lead Climbing Workshop • 5:00 PM", color: "pink" }],
+  "2026-03-19": [{ title: "Between Peaks • 7:00 PM", color: "red" }],
+  "2026-03-21": [{ title: "Superstition Dog Walking • 6:00 AM", color: "orange" }],
+  "2026-03-24": [{ title: "First Aid Kit Making + General Meeting • 7:00 PM", color: "white" }],
+  "2026-03-26": [{ title: "Between Peaks • 7:00 PM", color: "red" }],
+
+  "2026-04-03": [{ title: "Disability Night • 6:00 PM", color: "purple" }],
+  "2026-04-10": [{ title: "Group Camping Trip", color: "red" }],
+  "2026-04-11": [{ title: "Group Camping Trip", color: "red" }],
+  "2026-04-13": [{ title: "Journal Making + General Meeting • 7:00 PM", color: "white" }],
 };
 
 function BigCalendarGrid({ month, year }: { month: number; year: number }) {
