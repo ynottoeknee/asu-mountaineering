@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 // Background images
 const mountainImgPrimary = "/McDowellMountainCentered.jpg";
@@ -806,12 +806,12 @@ export default function ASUMountaineeringSite() {
         </Overlay>
       )}
 
-      {/* INITIATIVES */}
-      {route === "/initiatives" && (
-        <Overlay onClose={() => nav("/")}>
-          <InitiativesCalendar />
-        </Overlay>
-      )}
+     {/* INITIATIVES */}
+{route === "/initiatives" && (
+  <Overlay onClose={() => nav("/")}>
+    <InitiativesPanel navToContact={() => nav("/contact")} />
+  </Overlay>
+)}
 
       {/* RESOURCES */}
       {route === "/resources" && (
