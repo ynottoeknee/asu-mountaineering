@@ -104,11 +104,6 @@ function InstagramGrid() {
     </a>
   ))}
 </div>
-
-      <p className="mt-3 text-white/55 text-xs leading-relaxed">
-        Tip: keep these as simple square images in <span className="text-white/75">/public/instagram/</span>. If you ever want
-        them to “auto-update,” that requires the Instagram API (more work + more breakable).
-      </p>
     </div>
   );
 }
