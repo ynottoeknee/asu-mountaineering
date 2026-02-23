@@ -176,9 +176,9 @@ const PETITIONS_DOC =
 
 // TODO: paste your 3 student interest Google Form links here:
 const STUDENT_INTEREST_FORMS = {
-  disability: "https://forms.gle/PASTE_DISABILITY_FORM_LINK",
-  dogs: "https://forms.gle/PASTE_DOGS_FORM_LINK",
-  trails: "https://forms.gle/PASTE_TRAILS_FORM_LINK",
+  disability: "https://docs.google.com/forms/d/e/1FAIpQLScq8xyOZYVUbkSihOzkbc92mCckyYormqnHzy523JLaIkykNA/viewform?usp=sharing&ouid=106973640465177341939",
+  dogs: "https://docs.google.com/forms/d/e/1FAIpQLSegYkTTdVlzeYTgugv9M9L4U-MPbC3buhOp0GvWiHxlD6gXlQ/viewform?usp=publish-editor",
+  trails: "https://docs.google.com/forms/d/e/1FAIpQLSdOx4Cukd-uonN9Q1gCEJ0Y7RnxtBNLkinc0EQpdxaWzkIqfw/viewform?usp=publish-editor",
 } as const;
 
 type InitiativeKey = "disability" | "dogs" | "trails";
